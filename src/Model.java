@@ -21,4 +21,9 @@ public class Model
 		return 19.3;
 	}
 	
+	public double getWindSpeed()
+	{
+		return 12.0;
+	}
+	
 }

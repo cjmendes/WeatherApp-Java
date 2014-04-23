@@ -30,5 +30,9 @@ public class CurrentConditions extends JPanel
 		Font f = new Font("Helvetica", Font.BOLD, 24);
 		sunny.setFont(f);
 		canvas.add(sunny, 175, 50);
+		
+		JLabel speed = new JLabel("Wind speed: " + m.getWindSpeed());
+		speed.setFont(f);
+		canvas.add(speed, 175, 80);
 	}
 }
