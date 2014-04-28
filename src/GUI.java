@@ -9,7 +9,7 @@ public class GUI  extends Program
 	{
 		this.start();
 		this.setSize(400, 600);
-		this.setTitle("Hydro Thunder");
+		this.setTitle("5Cast");
 	}
 	
 	public void init()
