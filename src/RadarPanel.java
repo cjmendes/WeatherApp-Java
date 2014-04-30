@@ -1,4 +1,5 @@
 
+@SuppressWarnings("serial")
 public class RadarPanel extends WeatherPanel {
 
 	@Override

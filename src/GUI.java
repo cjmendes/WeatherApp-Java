@@ -1,8 +1,11 @@
 import javax.swing.JPanel;
+
 import acm.gui.*;
 import acm.program.*;
+
 import java.awt.Dimension;
 
+@SuppressWarnings("serial")
 public class GUI  extends Program
 {
 	public GUI()
