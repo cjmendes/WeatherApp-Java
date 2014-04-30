@@ -10,8 +10,14 @@ import com.google.gson.*;
 
 public class Model
 {
-
-private JsonElement jse = null;
+	
+	/*
+	 * Loren's Key: 4a505977e3e86a2c
+	 * Chris's Key: 0757ee8cfe589f60
+	 */
+	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
+	
+	private JsonElement jse = null;
 
 
 public void getInfo(String zipcode)
@@ -23,7 +29,7 @@ try
 String zip = URLEncoder.encode(zipcode, "utf-8");
 
 // Construct Weather API URL
-URL weatherURL = new URL("http://api.wunderground.com/api/4a505977e3e86a2c/conditions/q/"+ zip +".json");
+URL weatherURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/conditions/q/"+ zip +".json");
 
 // Open the URL
 InputStream is = weatherURL.openStream(); // throws an IOException
