@@ -15,7 +15,7 @@ public class Model {
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement jse = null;
 
-	public void getInfo(String zipcode) {
+	public Model(String zipcode) {
 
 		try 
 		{

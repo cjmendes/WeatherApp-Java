@@ -12,10 +12,10 @@ import acm.graphics.GOval;
 public class CurrentConditions extends WeatherPanel
 {
 	private Model m;
-	
 	public CurrentConditions()
 	{
-		m = new Model();
+		m = new Model("95621");
+		
 		
 		GCanvas canvas = new GCanvas();
 		canvas.setPreferredSize(new Dimension(400, 200));
@@ -26,7 +26,7 @@ public class CurrentConditions extends WeatherPanel
 		sun.setColor(Color.YELLOW);
 		canvas.add(sun, 100, 50);
 		
-		JLabel sunny = new JLabel(m.getCondition());
+		JLabel sunny = new JLabel(m.getWeather());
 		Font f = new Font("Helvetica", Font.BOLD, 24);
 		sunny.setFont(f);
 		canvas.add(sunny, 175, 50);
