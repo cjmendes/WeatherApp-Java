@@ -9,7 +9,7 @@ import acm.graphics.GCanvas;
 import acm.graphics.GOval;
 
 
-public class CurrentConditions extends JPanel
+public class CurrentConditions extends WeatherPanel
 {
 	private Model m;
 	
@@ -34,5 +34,10 @@ public class CurrentConditions extends JPanel
 		JLabel speed = new JLabel("Wind speed: " + m.getWindSpeed());
 		speed.setFont(f);
 		canvas.add(speed, 175, 80);
+	}
+
+	@Override
+	public void onLocationChanged(Model newModel) {
+		// This method will be called when a new location has been retrieved.
 	}
 }
