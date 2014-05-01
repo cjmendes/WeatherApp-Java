@@ -1,7 +1,6 @@
-import javax.swing.JPanel;
 
 
 @SuppressWarnings("serial")
-public abstract class WeatherPanel extends JPanel {
-	public abstract void onLocationChanged(Model newModel);
+public interface WeatherPanel {
+	public void onLocationChanged(Model newModel);
 }

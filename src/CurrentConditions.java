@@ -9,7 +9,8 @@ import acm.graphics.GCanvas;
 import acm.graphics.GOval;
 
 
-public class CurrentConditions extends WeatherPanel
+@SuppressWarnings("serial")
+public class CurrentConditions extends JPanel implements WeatherPanel
 {
 	private Model m;
 	public CurrentConditions()

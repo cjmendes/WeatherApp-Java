@@ -1,6 +1,8 @@
+import javax.swing.JPanel;
+
 
 @SuppressWarnings("serial")
-public class RadarPanel extends WeatherPanel {
+public class RadarPanel extends JPanel implements WeatherPanel {
 
 	@Override
 	public void onLocationChanged(Model newModel) {
