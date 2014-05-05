@@ -10,10 +10,10 @@ import acm.graphics.GOval;
 
 
 @SuppressWarnings("serial")
-public class CurrentConditions extends JPanel implements WeatherPanel
+public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 {
 	private Model m;
-	public CurrentConditions()
+	public CurrentConditionsPanel()
 	{
 		m = new Model("95621");
 		

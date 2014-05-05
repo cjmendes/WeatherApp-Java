@@ -19,7 +19,7 @@ public class GUI  extends Program
 	{
 		VPanel slots = new VPanel();
 		
-		JPanel top = new CurrentConditions();
+		JPanel top = new CurrentConditionsPanel();
 		JPanel middle = new ForecastPanel();
 		JPanel bottom = new RadarPanel();
 		
