@@ -1,6 +1,6 @@
-import javax.swing.JLabel;
-
 import acm.gui.VPanel;
+
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class ForecastRow extends VPanel {

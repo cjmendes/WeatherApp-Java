@@ -1,21 +1,17 @@
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import acm.graphics.GCanvas;
 import acm.graphics.GOval;
+
+import javax.swing.*;
+import java.awt.*;
 
 
 @SuppressWarnings("serial")
 public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 {
-	private Model m;
+	private WundergroundModel m;
 	public CurrentConditionsPanel()
 	{
-		m = new Model("95621");
+		m = new WundergroundModel("95621");
 		
 		
 		GCanvas canvas = new GCanvas();

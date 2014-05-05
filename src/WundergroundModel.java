@@ -1,13 +1,14 @@
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URLEncoder;
 import java.net.URL;
+import java.net.URLEncoder;
 
-import com.google.gson.*;
-
-public class Model {
+public class WundergroundModel implements Model {
 
 	/*
 	 * Loren's Key: 4a505977e3e86a2c Chris's Key: 0757ee8cfe589f60
@@ -15,7 +16,7 @@ public class Model {
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement jse = null;
 
-	public Model(String zipcode) {
+	public WundergroundModel(String zipcode) {
 
 		try 
 		{
@@ -48,7 +49,7 @@ public class Model {
 
 	}
 
-	public String getWeather() {
+    public String getWeather() {
 		if (jse != null) {
 			String weather = jse.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("weather").getAsString();
@@ -58,7 +59,7 @@ public class Model {
 		}
 	}
 
-	public double getTemperature() {
+    public double getTemperature() {
 		if (jse != null) {
 			double temp = jse.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("temp_f").getAsDouble();
@@ -69,7 +70,7 @@ public class Model {
 		}
 	}
 
-	public double getWindSpeed() {
+    public double getWindSpeed() {
 		if (jse != null) {
 			double windmph = jse.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("wind_mph").getAsDouble();
