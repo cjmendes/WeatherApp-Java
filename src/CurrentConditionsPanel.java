@@ -11,10 +11,15 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 	private WundergroundModel m;
 	public CurrentConditionsPanel()
 	{
-		m = new WundergroundModel("95621");
-		
-		
-		GCanvas canvas = new GCanvas();
+        try
+        {
+            m = new WundergroundModel("95621");
+        } catch (WundergroundModel.WundergroundException e)
+        {
+        }
+
+
+        GCanvas canvas = new GCanvas();
 		canvas.setPreferredSize(new Dimension(400, 200));
 		this.add(canvas);
 		

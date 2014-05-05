@@ -66,9 +66,9 @@ public class GUI  extends Program
                 Model m = new WundergroundModel(searchField.getText());
                 updateLocation(m);
             }
-            catch (Exception e)
+            catch (WundergroundModel.WundergroundException e)
             {
-                e.printStackTrace();
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }

@@ -16,7 +16,7 @@ public class WundergroundModel implements Model {
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement jse = null;
 
-	public WundergroundModel(String zipcode) {
+	public WundergroundModel(String zipcode) throws WundergroundException {
 
 		try 
 		{
@@ -35,17 +35,24 @@ public class WundergroundModel implements Model {
 			// Read the result into a JSON Element
 			jse = new JsonParser().parse(br);
 
+            System.out.println(jse.toString());
+
 			// Close the connection
 			is.close();
 			br.close();
-			
-		} catch (java.io.UnsupportedEncodingException uee) {
+        } catch (java.io.UnsupportedEncodingException uee) {
 			uee.printStackTrace();
 		} catch (java.net.MalformedURLException mue) {
 			mue.printStackTrace();
 		} catch (java.io.IOException ioe) {
 			ioe.printStackTrace();
 		}
+
+        if(jse != null) {
+            if(jse.getAsJsonObject().get("response").getAsJsonObject().has("error")) {
+                throw new WundergroundException(jse.getAsJsonObject().get("response").getAsJsonObject().get("error").getAsJsonObject().get("description").getAsString());
+            }
+        }
 
 	}
 
@@ -80,4 +87,11 @@ public class WundergroundModel implements Model {
 			return windmph;
 		}
 	}
+
+    public class WundergroundException extends Exception
+    {
+        public WundergroundException(String message) {
+            super(message);
+        }
+    }
 }
