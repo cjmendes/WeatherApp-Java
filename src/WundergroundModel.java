@@ -15,6 +15,7 @@ public class WundergroundModel implements Model {
 	 */
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement jse = null;
+	private URL radarURL = null;
 
 	public WundergroundModel(String zipcode) throws WundergroundException {
 
@@ -27,6 +28,11 @@ public class WundergroundModel implements Model {
 			URL weatherURL = new URL("http://api.wunderground.com/api/"
 					+ ACCESS_TOKEN + "/conditions/q/" 
 					+ zip + ".json");
+			
+			//You can change the width and height by changing the numbers in the URL
+			radarURL = new URL("http://api.wunderground.com/api/"
+					+ ACCESS_TOKEN + "/animatedradar/q/"
+					+ zip + ".gif?width=400&height=200&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
 
 			// Open the URL
 			InputStream is = weatherURL.openStream(); // throws an IOException
@@ -85,6 +91,15 @@ public class WundergroundModel implements Model {
 		} else {
 			Double windmph = Double.NaN;
 			return windmph;
+		}
+	}
+    
+	public URL getRadar() {
+		if (radarURL != null) {
+			return radarURL;
+		} else {
+			radarURL = null;
+			return radarURL;
 		}
 	}
 
