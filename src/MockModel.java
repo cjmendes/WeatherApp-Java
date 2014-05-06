@@ -1,6 +1,11 @@
 import java.net.URL;
 
 public class MockModel implements Model {
+
+	public MockModel(String zipcode)
+	{
+	}
+	
     @Override
     public String getWeather() {
         return "Super Awesome";
@@ -26,4 +31,5 @@ public class MockModel implements Model {
 		}
         return radURL;
     }
+
 }
