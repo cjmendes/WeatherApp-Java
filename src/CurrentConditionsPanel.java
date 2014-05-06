@@ -44,7 +44,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		canvas.add(speed, 175, 80);
 		
 		JButton refreshButton = new JButton("Refresh");
-	    this.add(refreshButton, 300, 170);
+	    canvas.add(refreshButton, 300, 170);
 	}
 
 
