@@ -2,21 +2,27 @@ import acm.graphics.GCanvas;
 import acm.graphics.GOval;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 
 @SuppressWarnings("serial")
 public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 {
-	private WundergroundModel m;
+	private MockModel m;
 	public CurrentConditionsPanel()
 	{
-        try
-        {
-            m = new WundergroundModel("95621");
-        } catch (WundergroundModel.WundergroundException e)
-        {
-        }
+		
+		/* 
+		 * Change MockModel back to WundergroundModel when we want live data
+		 * and un-comment the try block
+		 */
+        //try
+        //{
+            m = new MockModel("95621");
+        //} catch (WundergroundModel.WundergroundException e)
+        //{
+        //}
 
 
         GCanvas canvas = new GCanvas();
@@ -36,7 +42,11 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		JLabel speed = new JLabel("Wind speed: " + m.getWindSpeed());
 		speed.setFont(f);
 		canvas.add(speed, 175, 80);
+		
+		JButton refreshButton = new JButton("Refresh");
+	    this.add(refreshButton, 300, 170);
 	}
+
 
 	@Override
 	public void onLocationChanged(Model newModel) {
