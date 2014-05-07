@@ -65,6 +65,19 @@ public class WundergroundForecastModel implements ForecastModel
 			return null;
 		}
 	}
+    public String getIconString(int dayIndex) {
+		if (jse7 != null) {
+            String iconString = jse7.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
+                    .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("icon")
+                    .getAsString();
+
+            return iconString;
+
+		}
+		else {
+			return null;
+		}
+	}
 
     public double getDayHigh(int dayIndex) {
 		if (jse7 != null) {
