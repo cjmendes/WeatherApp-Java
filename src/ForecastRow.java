@@ -6,10 +6,11 @@ import java.awt.*;
 
 @SuppressWarnings("serial")
 public class ForecastRow extends VPanel {
-		
-	private JLabel dayLabel;
+
+    private JLabel dayLabel;
     private JLabel lowLabel;
     private JLabel highLabel;
+    private JLabel conditionIcon;
 
 	public ForecastRow(int position) {
         if(position % 2 == 0) {
@@ -34,6 +35,10 @@ public class ForecastRow extends VPanel {
         highLabel.setForeground(Color.red);
         tempArea.add(highLabel);
         add(tempArea);
+
+        conditionIcon = new JLabel();
+        conditionIcon.setHorizontalAlignment(JLabel.CENTER);
+        add(conditionIcon);
 	}
 	
 	public void update(int position, Model model) {
@@ -42,5 +47,6 @@ public class ForecastRow extends VPanel {
         dayLabel.setText(f.getDay(position));
         lowLabel.setText(""+f.getDayLow(position));
         highLabel.setText(""+f.getDayHigh(position));
+        conditionIcon.setIcon(IconHelper.getIcon(f.getIconString(position)));
 	}
 }
