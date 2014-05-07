@@ -10,7 +10,7 @@ public class ForecastPanel extends JPanel implements WeatherPanel {
 	
 	public ForecastPanel() {
 		for(int i = 0; i < NUM_COLS; i++) {
-			days[i] = new ForecastRow(i);
+			days[i] = new ForecastRow();
 			add(days[i]);
 		}
 	}

@@ -19,7 +19,7 @@ public class GUI  extends Program
     public GUI()
 	{
 		this.start();
-		this.setSize(400, 700);
+		this.setSize(500, 700);
 		this.setTitle("5Cast");
 	}
 	
@@ -45,12 +45,23 @@ public class GUI  extends Program
 		slots.add(forecast);
 		slots.add(radar);
 		
-		currentConditions.setPreferredSize(new Dimension(400, 200));
-		forecast.setPreferredSize(new Dimension(400, 200));
-		radar.setPreferredSize(new Dimension(400, 200));
+		currentConditions.setPreferredSize(new Dimension(500, 200));
+		forecast.setPreferredSize(new Dimension(500, 200));
+		radar.setPreferredSize(new Dimension(500, 200));
 
         addActionListeners();
-	}
+
+
+        // Load initial location
+        //TODO: get this from IP
+        try
+        {
+            updateLocation(new WundergroundModel("95747"));
+        } catch (WundergroundModel.WundergroundException e)
+        {
+            e.printStackTrace();
+        }
+    }
 	
 	public static void main(String[] args)
 	{

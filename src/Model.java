@@ -5,4 +5,5 @@ public interface Model {
     double getTemperature();
     double getWindSpeed();
     URL getRadar();
+    ForecastModel getForecast();
 }
