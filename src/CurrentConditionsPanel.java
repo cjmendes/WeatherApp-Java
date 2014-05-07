@@ -10,19 +10,21 @@ import java.awt.*;
 public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 {
 	private MockModel m;
+	//private WundergroundModel m;
+	
 	public CurrentConditionsPanel()
 	{
 		
-		/* 
-		 * Change MockModel back to WundergroundModel when we want live data
-		 * and un-comment the try block
-		 */
-        //try
-        //{
-            m = new MockModel("95621");
-        //} catch (WundergroundModel.WundergroundException e)
-        //{
-        //}
+        m = new MockModel("95621");
+            
+        /* 
+    	 * When we want live data comment above and un-comment below
+        try
+        {
+            m = new WundergroundModel("95621");
+        } catch (WundergroundModel.WundergroundException e)
+        {
+        }*/
 
 
         GCanvas canvas = new GCanvas();
