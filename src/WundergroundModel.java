@@ -33,7 +33,7 @@ public class WundergroundModel implements Model {
 			//You can change the width and height by changing the numbers in the URL
 			radarURL = new URL("http://api.wunderground.com/api/"
 					+ ACCESS_TOKEN + "/animatedradar/q/"
-					+ zip + ".gif?width=400&height=200&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
+					+ zip + ".gif?width=500&height=200&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
 
 			// Open the URL
 			InputStream is = weatherURL.openStream(); // throws an IOException
@@ -82,6 +82,68 @@ public class WundergroundModel implements Model {
 		} else {
 			Double temp = Double.NaN;
 			return temp;
+		}
+	}
+    
+    public String getIconText() {
+		if (jse != null) {
+			String icon = jse.getAsJsonObject().get("current_observation")
+					.getAsJsonObject().get("icon").getAsString();
+			return icon;
+		} else {
+			return null;
+		}
+	}
+    
+    public String getElevation() {
+		if (jse != null) {
+			String elevation = jse.getAsJsonObject().get("current_observation")
+					.getAsJsonObject().get("observation_location")
+					.getAsJsonObject().get("elevation").getAsString();
+			return elevation;
+		} else {
+			return null;
+		}
+	}
+    
+    public String getHumidity() {
+		if (jse != null) {
+			String humidity = jse.getAsJsonObject().get("current_observation")
+					.getAsJsonObject().get("relative_humidity").getAsString();
+			return humidity;
+		} else {
+			return null;
+		}
+	}
+    
+    public String getPrecipitation() {
+		if (jse != null) {
+			String precipitation = jse.getAsJsonObject().get("current_observation")
+					.getAsJsonObject().get("precip_today_string").getAsString();
+			return precipitation;
+		} else {
+			return null;
+		}
+	}
+    
+    public double getFeelsLike() {
+		if (jse != null) {
+			double feelsLike = jse.getAsJsonObject().get("current_observation")
+					.getAsJsonObject().get("feelslike_f").getAsDouble();
+			return feelsLike;
+		} else {
+			Double feelsLike = Double.NaN;
+			return feelsLike;
+		}
+	}
+    
+    public String getWindDir() {
+		if (jse != null) {
+			String windDir = jse.getAsJsonObject().get("current_observation")
+					.getAsJsonObject().get("wind_dir").getAsString();
+			return windDir;
+		} else {
+			return null;
 		}
 	}
 
