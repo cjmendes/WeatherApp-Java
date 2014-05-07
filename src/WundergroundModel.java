@@ -16,6 +16,7 @@ public class WundergroundModel implements Model {
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement jse = null;
 	private URL radarURL = null;
+    private ForecastModel forecast;
 
 	public WundergroundModel(String zipcode) throws WundergroundException {
 
@@ -41,7 +42,8 @@ public class WundergroundModel implements Model {
 			// Read the result into a JSON Element
 			jse = new JsonParser().parse(br);
 
-            System.out.println(jse.toString());
+            // Grab forecast data
+            forecast = new WundergroundForecastModel(zipcode);
 
 			// Close the connection
 			is.close();
@@ -102,6 +104,12 @@ public class WundergroundModel implements Model {
 			return radarURL;
 		}
 	}
+
+    @Override
+    public ForecastModel getForecast()
+    {
+        return forecast;
+    }
 
     public class WundergroundException extends Exception
     {

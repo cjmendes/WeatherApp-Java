@@ -7,14 +7,14 @@ public class ForecastRow extends VPanel {
 		
 	private JLabel dayLabel;
 	
-	public ForecastRow(int position) {
+	public ForecastRow() {
 		dayLabel = new JLabel();
-		dayLabel.setText("Day "+position);
-		
 		add(dayLabel);
+
 	}
 	
 	public void update(int position, Model model) {
 		// Update the various components here.
+        dayLabel.setText(model.getForecast().getDay(position));
 	}		
 }
