@@ -15,6 +15,7 @@ public class WundergroundModel implements Model {
 	 */
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement jse = null;
+	private JsonElement jse2 = null;
 	private URL radarURL = null;
     private ForecastModel forecast;
 
@@ -30,17 +31,25 @@ public class WundergroundModel implements Model {
 					+ ACCESS_TOKEN + "/conditions/q/" 
 					+ zip + ".json");
 			
+		    // forecast URL to get the day high's and low's
+			URL forecastURL = new URL("http://api.wunderground.com/api/"+ ACCESS_TOKEN + "/forecast/q/CA/"+ zip +".json");
+			
 			//You can change the width and height by changing the numbers in the URL
 			radarURL = new URL("http://api.wunderground.com/api/"
 					+ ACCESS_TOKEN + "/animatedradar/q/"
 					+ zip + ".gif?width=500&height=200&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
-
+          
+			
 			// Open the URL
 			InputStream is = weatherURL.openStream(); // throws an IOException
 			BufferedReader br = new BufferedReader(new InputStreamReader(is));
+			
+			InputStream is2 = forecastURL.openStream();
+			BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
 
 			// Read the result into a JSON Element
 			jse = new JsonParser().parse(br);
+			jse2 = new JsonParser().parse(br2);
 
             // Grab forecast data
             forecast = new WundergroundForecastModel(zipcode);
@@ -48,6 +57,9 @@ public class WundergroundModel implements Model {
 			// Close the connection
 			is.close();
 			br.close();
+			is2.close();
+			br2.close();
+			
         } catch (java.io.UnsupportedEncodingException uee) {
 			uee.printStackTrace();
 		} catch (java.net.MalformedURLException mue) {
@@ -82,6 +94,29 @@ public class WundergroundModel implements Model {
 		} else {
 			double temp = Double.NaN;
 			return temp;
+		}
+	}
+    
+    public double getDHigh(int dayIndex) {
+		if (jse != null) {
+			double dayhigh = jse2.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
+                    .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("high")
+                    .getAsJsonObject().get("fahrenheit").getAsDouble();
+			return dayhigh;
+		} else {
+			double dayhigh = Double.NaN;
+			return dayhigh;
+		}
+	}
+    public double getDLow(int dayIndex) {
+		if (jse != null) {
+			double daylow = jse2.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
+                    .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("low")
+                    .getAsJsonObject().get("fahrenheit").getAsDouble();
+			return daylow;
+		} else {
+			double daylow = Double.NaN;
+			return daylow;
 		}
 	}
     
