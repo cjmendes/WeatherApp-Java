@@ -4,6 +4,7 @@ import acm.graphics.GOval;
 import javax.swing.*;
 
 import java.awt.*;
+import java.text.DecimalFormat;
 
 
 @SuppressWarnings("serial")
@@ -11,37 +12,44 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 {
 	private WundergroundModel m;
 	private JLabel currentTemp, highTemp, lowTemp, conditionIcon, conditionText;
-	private JLabel chanceRain, feelsLike, humidity, elevation, windDir, windSpeed;
-	private double cTemp, hTemp;
-	private String condition;
+	private JLabel precipPercent, feelsLike, humidity, elevation, windDir, windSpeed;
+	//Assigns current temp to variable cT so that it may be converted to an int
+	private double cT;
+	//private int cTI;
 	public CurrentConditionsPanel()
 	{
 		
 		
         GCanvas canvas = new GCanvas();
-		canvas.setPreferredSize(new Dimension(400, 200));
+		canvas.setPreferredSize(new Dimension(500, 200));
 		this.add(canvas);
+
+		Font conditionFont = new Font("Helvetica", Font.BOLD, 80);
+		//DecimalFormat currentCFormat = new DecimalFormat( "##0" );
+		//cTI = (int) cT;
 
 		
 		
 		//Will change to getters, and adjust positions and fonts
-		currentTemp = new JLabel(cTemp + "F");
-		canvas.add(currentTemp, 30, 40);
+		currentTemp = new JLabel("Current Temp");
+		currentTemp.setFont(conditionFont);
+		currentTemp.setForeground(Color.lightGray);
+		canvas.add(currentTemp, 10, 10);
 		
-		highTemp = new JLabel( "High: " + hTemp + "F");
+		highTemp = new JLabel( "High: ####F");
 		canvas.add(highTemp, 110, 40);
 		
-		lowTemp = new JLabel("Low: " + "##F");
+		lowTemp = new JLabel("Low: ####F");
 		canvas.add(lowTemp, 110, 70);
 		
 		conditionIcon = new JLabel("ICON");
 		canvas.add(conditionIcon, 260, 50);
 		
-		conditionText = new JLabel(condition);
+		conditionText = new JLabel( "Partly Cloudy" );
 		canvas.add(conditionText, 260, 30);
 		
-		chanceRain = new JLabel("Chance of Rain: ##%");
-		canvas.add(chanceRain, 40, 110);
+		precipPercent = new JLabel("Chance of Rain: ##%");
+		canvas.add(precipPercent, 40, 110);
 		
 		feelsLike = new JLabel("Feels Like: ##F");
 		canvas.add(feelsLike, 40, 130);
@@ -55,7 +63,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		windDir = new JLabel("Wind Direction: NNW");
 		canvas.add(windDir, 260, 110);
 		
-		windSpeed = new JLabel("Wind Speed: ##mph");
+		windSpeed = new JLabel("Wind Speed: " + windSpeed + "mph");
 		canvas.add(windSpeed, 260, 150);
 		
 		
@@ -76,11 +84,25 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 
 	@Override
 	public void onLocationChanged(Model newModel) {
-		cTemp = newModel.getTemperature();
-		condition = newModel.getWeather();
-	
-		//Have model get current day High + Low Temperature
-		//double hTemp = newModel.getForecast().getDayHigh(0);
 		// This method will be called when a new location has been retrieved.
+		conditionText.setText(newModel.getWeather());
+		
+		windSpeed.setText("Wind Speed: " + newModel.getWindSpeed() + "mph");
+		
+		cT = newModel.getTemperature();
+		currentTemp.setText( cT + "");
+		
+		conditionText.setText(newModel.getIconText());
+		
+		elevation.setText("Elevation: " + newModel.getElevation() + "ft");
+		
+		humidity.setText("Humidity: " + newModel.getHumidity() + "%");
+		
+		precipPercent.setText("Precipitation: " + newModel.getPrecipitation() + "%");
+		
+		feelsLike.setText("Feels Like: " + newModel.getFeelsLike() + "");
+		
+		windDir.setText(newModel.getWindDir());
+		
 	}
 }
