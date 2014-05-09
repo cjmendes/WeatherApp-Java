@@ -11,7 +11,7 @@ import java.net.URLEncoder;
 public class WundergroundModel implements Model {
 
 	/*
-	 * Loren's Key: 4a505977e3e86a2c Chris's Key: 0757ee8cfe589f60
+	 * Loren's Key: 4a505977e3e86a2c Chris's Key: 0757ee8cfe589f60 Derek's Key: 5faf852c94c0fe7a
 	 */
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement jse = null;
@@ -80,7 +80,7 @@ public class WundergroundModel implements Model {
 					.getAsJsonObject().get("temp_f").getAsDouble();
 			return temp;
 		} else {
-			Double temp = Double.NaN;
+			double temp = Double.NaN;
 			return temp;
 		}
 	}
