@@ -24,7 +24,8 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		canvas.setPreferredSize(new Dimension(500, 200));
 		this.add(canvas);
 
-		Font conditionFont = new Font("Helvetica", Font.BOLD, 80);
+		Font conditionFont = new Font("VERDANA", Font.LAYOUT_LEFT_TO_RIGHT, 51);
+		Font smallFont = new Font("TAHOMA", Font.CENTER_BASELINE, 11);
 		//DecimalFormat currentCFormat = new DecimalFormat( "##0" );
 		//cTI = (int) cT;
 
@@ -33,37 +34,57 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		//Will change to getters, and adjust positions and fonts
 		currentTemp = new JLabel("Current Temp");
 		currentTemp.setFont(conditionFont);
-		currentTemp.setForeground(Color.lightGray);
-		canvas.add(currentTemp, 10, 10);
+		currentTemp.setForeground(Color.white);
+		canvas.setBackground(Color.darkGray);
+		canvas.add(currentTemp, 10, 30);
 		
 		highTemp = new JLabel( "High: ####F");
-		canvas.add(highTemp, 110, 40);
+		highTemp.setFont(smallFont);
+		highTemp.setForeground(Color.white);
+		canvas.add(highTemp, 140, 40);
 		
 		lowTemp = new JLabel("Low: ####F");
-		canvas.add(lowTemp, 110, 70);
+		lowTemp.setFont(smallFont);
+		lowTemp.setForeground(Color.white);
+		canvas.add(lowTemp, 140, 70);
 		
 		conditionIcon = new JLabel("ICON");
+		conditionIcon.setForeground(Color.white);
 		canvas.add(conditionIcon, 260, 50);
 		
 		conditionText = new JLabel( "Partly Cloudy" );
+		conditionText.setFont(smallFont);
+		conditionText.setForeground(Color.white);
 		canvas.add(conditionText, 260, 30);
 		
 		precipPercent = new JLabel("Chance of Rain: ##%");
+		precipPercent.setFont(smallFont);
+		precipPercent.setForeground(Color.white);
 		canvas.add(precipPercent, 40, 110);
 		
 		feelsLike = new JLabel("Feels Like: ##F");
+		feelsLike.setFont(smallFont);
+		feelsLike.setForeground(Color.white);
 		canvas.add(feelsLike, 40, 130);
 		
 		humidity = new JLabel("Humidity: ##%");
+		humidity.setFont(smallFont);
+		humidity.setForeground(Color.white);
 		canvas.add(humidity, 40, 150);
 		
 		elevation = new JLabel("Elevation: ##ft");
+		elevation.setFont(smallFont);
+		elevation.setForeground(Color.white);
 		canvas.add(elevation, 40, 170);
 		
 		windDir = new JLabel("Wind Direction: NNW");
+		windDir.setFont(smallFont);
+		windDir.setForeground(Color.white);
 		canvas.add(windDir, 260, 110);
 		
 		windSpeed = new JLabel("Wind Speed: " + windSpeed + "mph");
+		windSpeed.setFont(smallFont);
+		windSpeed.setForeground(Color.white);
 		canvas.add(windSpeed, 260, 150);
 		
 		
@@ -78,7 +99,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		canvas.add(speed, 175, 80);*/
 		
 		JButton refreshButton = new JButton("Refresh");
-	    canvas.add(refreshButton, 300, 170);
+	    canvas.add(refreshButton, 280, 170);
 	}
 
 

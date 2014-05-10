@@ -12,19 +12,18 @@ public class RadarPanel extends JPanel implements WeatherPanel {
 	private JLabel radarLabel; 
 	
 	public RadarPanel() {
-		GCanvas canvas = new GCanvas();
-		canvas.setPreferredSize(new Dimension(500, 200));
-		this.add(canvas);
-
+		GCanvas radarCanvas = new GCanvas();
+		radarCanvas.setPreferredSize(new Dimension(500, 200));
+		this.add(radarCanvas);
+		radarCanvas.setBackground(Color.darkGray);
 		
 			
 		
 		
 		radarLabel = new JLabel();
 
-		canvas.add(radarLabel, 0, 0);
-		canvas.setVisible(true);
-
+		radarCanvas.add(radarLabel, 0, 0);
+		radarCanvas.setVisible(true);
 	}
 
 	@Override

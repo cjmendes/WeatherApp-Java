@@ -2,6 +2,7 @@ import acm.gui.HPanel;
 import acm.gui.VPanel;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 @SuppressWarnings("serial")
@@ -19,20 +20,24 @@ public class ForecastRow extends VPanel {
             setBackground(Color.LIGHT_GRAY);
         }
 
+        Font smallFont = new Font("TAHOMA", Font.CENTER_BASELINE, 11);
 		dayLabel = new JLabel();
         dayLabel.setHorizontalAlignment(JLabel.CENTER);
+        dayLabel.setFont(smallFont);
 		add(dayLabel);
+		
 
         HPanel tempArea = new HPanel();
         tempArea.setOpaque(false);
         lowLabel = new JLabel();
         lowLabel.setHorizontalAlignment(JLabel.CENTER);
         lowLabel.setForeground(Color.blue);
+        //lowlabel.setFont(smallFont);
         tempArea.add(lowLabel);
         tempArea.add(new JLabel("|"));
         highLabel = new JLabel();
-        highLabel.setHorizontalAlignment(JLabel.CENTER);
         highLabel.setForeground(Color.red);
+        //highlabel.setFont(smallFont);
         tempArea.add(highLabel);
         add(tempArea);
 
