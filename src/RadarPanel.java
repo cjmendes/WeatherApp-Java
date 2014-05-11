@@ -1,9 +1,8 @@
-import java.net.URL;
-import java.awt.*;
+import acm.graphics.GCanvas;
 
 import javax.swing.*;
-
-import acm.graphics.GCanvas;
+import java.awt.*;
+import java.net.URL;
 
 @SuppressWarnings("serial")
 public class RadarPanel extends JPanel implements WeatherPanel {
@@ -21,6 +20,7 @@ public class RadarPanel extends JPanel implements WeatherPanel {
 		
 		
 		radarLabel = new JLabel();
+        radarLabel.setPreferredSize(radarCanvas.getPreferredSize());
 
 		radarCanvas.add(radarLabel, 0, 0);
 		radarCanvas.setVisible(true);
