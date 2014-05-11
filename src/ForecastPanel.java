@@ -1,9 +1,5 @@
-import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.JPanel;
-
-import acm.graphics.GCanvas;
+import javax.swing.*;
+import java.awt.*;
 
 
 @SuppressWarnings("serial")
@@ -21,11 +17,7 @@ public class ForecastPanel extends JPanel implements WeatherPanel {
 			add(days[i]);
 		}
 		
-		GCanvas forecastCanvas = new GCanvas();
-		forecastCanvas.setPreferredSize(new Dimension(500, 200));
-		this.add(forecastCanvas);
-		forecastCanvas.setBackground(Color.darkGray);
-		
+		setBackground(Color.darkGray);
 	}
 
 	@Override
