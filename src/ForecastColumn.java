@@ -6,14 +6,14 @@ import javax.swing.*;
 import java.awt.*;
 
 @SuppressWarnings("serial")
-public class ForecastRow extends VPanel {
+public class ForecastColumn extends VPanel {
 
     private JLabel dayLabel;
     private JLabel lowLabel;
     private JLabel highLabel;
     private JLabel conditionIcon;
 
-	public ForecastRow(int position) {
+	public ForecastColumn(int position) {
         if(position % 2 == 0) {
             setBackground(Color.WHITE);
         } else {
