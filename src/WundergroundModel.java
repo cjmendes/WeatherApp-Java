@@ -3,6 +3,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -19,7 +20,10 @@ public class WundergroundModel implements Model {
 	private URL radarURL = null;
     private ForecastModel forecast;
 
+    private URL weatherURL, forecastURL;
+
 	public WundergroundModel(String zipcode) throws WundergroundException {
+
 
 		try 
 		{
@@ -27,45 +31,20 @@ public class WundergroundModel implements Model {
 			String zip = URLEncoder.encode(zipcode, "utf-8");
 
 			// Construct Weather API URL
-			URL weatherURL = new URL("http://api.wunderground.com/api/"
-					+ ACCESS_TOKEN + "/conditions/q/" 
-					+ zip + ".json");
-			
+			weatherURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/conditions/q/" + zip + ".json");
+
 		    // forecast URL to get the day high's and low's
-			URL forecastURL = new URL("http://api.wunderground.com/api/"+ ACCESS_TOKEN + "/forecast/q/CA/"+ zip +".json");
-			
-			//You can change the width and height by changing the numbers in the URL
-			radarURL = new URL("http://api.wunderground.com/api/"
-					+ ACCESS_TOKEN + "/animatedradar/q/"
-					+ zip + ".gif?width=500&height=200&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
-          
-			
-			// Open the URL
-			InputStream is = weatherURL.openStream(); // throws an IOException
-			BufferedReader br = new BufferedReader(new InputStreamReader(is));
-			
-			InputStream is2 = forecastURL.openStream();
-			BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
+			forecastURL = new URL("http://api.wunderground.com/api/"+ ACCESS_TOKEN + "/forecast/q/"+ zip +".json");
 
-			// Read the result into a JSON Element
-			jse = new JsonParser().parse(br);
-			jse2 = new JsonParser().parse(br2);
+			radarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/animatedradar/q/" + zip + ".gif?width="+WeatherPanel.WIDTH+"&height="+WeatherPanel.HEIGHT+"&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
 
-            // Grab forecast data
             forecast = new WundergroundForecastModel(zipcode);
 
-			// Close the connection
-			is.close();
-			br.close();
-			is2.close();
-			br2.close();
-			
+            refresh();
         } catch (java.io.UnsupportedEncodingException uee) {
 			uee.printStackTrace();
 		} catch (java.net.MalformedURLException mue) {
 			mue.printStackTrace();
-		} catch (java.io.IOException ioe) {
-			ioe.printStackTrace();
 		}
 
         if(jse != null) {
@@ -75,6 +54,33 @@ public class WundergroundModel implements Model {
         }
 
 	}
+
+    public void refresh()
+    {
+        try {
+            // Open the URL
+            InputStream is = weatherURL.openStream(); // throws an IOException
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+            InputStream is2 = forecastURL.openStream();
+            BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
+
+            // Read the result into a JSON Element
+            jse = new JsonParser().parse(br);
+            jse2 = new JsonParser().parse(br2);
+
+            // Grab forecast data
+            forecast.refresh();
+
+            // Close the connection
+            is.close();
+            br.close();
+            is2.close();
+            br2.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public String getWeather() {
 		if (jse != null) {

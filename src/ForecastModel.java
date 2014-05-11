@@ -7,6 +7,7 @@ public interface ForecastModel
     String getIconString(int dayIndex);
     String getConditions(int dayIndex);
     double getWindspeed(int dayIndex);
-    String getWindDirection(int dayIndex);
+    int getWindDirection(int dayIndex);
 
+    void refresh();
 }

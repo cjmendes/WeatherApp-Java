@@ -1,10 +1,7 @@
 import acm.graphics.GCanvas;
-import acm.graphics.GOval;
 
 import javax.swing.*;
-
 import java.awt.*;
-import java.text.DecimalFormat;
 
 
 @SuppressWarnings("serial")
@@ -21,7 +18,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		
 		
         GCanvas canvas = new GCanvas();
-		canvas.setPreferredSize(new Dimension(500, 200));
+		canvas.setPreferredSize(new Dimension(WeatherPanel.WIDTH, WeatherPanel.HEIGHT));
 		this.add(canvas);
 
 		Font conditionFont = new Font("VERDANA", Font.LAYOUT_LEFT_TO_RIGHT, 51);

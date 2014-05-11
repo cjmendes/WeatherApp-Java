@@ -14,4 +14,6 @@ public interface Model {
     double getWindSpeed();
     URL getRadar();
     ForecastModel getForecast();
+
+    void refresh();
 }
