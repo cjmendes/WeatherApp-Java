@@ -1,4 +1,5 @@
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
@@ -47,18 +48,18 @@ public class WundergroundForecastModel implements ForecastModel
 
 	}
 
+    private JsonObject getForecastObject(int dayIndex)
+    {
+        return jse7.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
+                .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject();
+    }
+
 	// Seven Day Forecast
     public String getDay(int dayIndex) {
 		if (jse7 != null) {
-			String weekDay = jse7.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
-                    .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("date")
-                    .getAsJsonObject().get("weekday_short").getAsString();
-            String day = jse7.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
-                    .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("date")
-                    .getAsJsonObject().get("day").getAsString();
-            String month = jse7.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
-                    .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("date")
-                    .getAsJsonObject().get("month").getAsString();
+			String weekDay = getForecastObject(dayIndex).get("date").getAsJsonObject().get("weekday_short").getAsString();
+            String day = getForecastObject(dayIndex).get("date").getAsJsonObject().get("day").getAsString();
+            String month = getForecastObject(dayIndex).get("date").getAsJsonObject().get("month").getAsString();
 
 			return weekDay+" "+day+"/"+month;
 		} else {
@@ -67,8 +68,7 @@ public class WundergroundForecastModel implements ForecastModel
 	}
     public String getIconString(int dayIndex) {
 		if (jse7 != null) {
-            String iconString = jse7.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
-                    .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("icon")
+            String iconString = getForecastObject(dayIndex).get("icon")
                     .getAsString();
 
             return iconString;
@@ -81,9 +81,7 @@ public class WundergroundForecastModel implements ForecastModel
 
     public double getDayHigh(int dayIndex) {
 		if (jse7 != null) {
-            double high = jse7.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
-                    .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("high")
-                    .getAsJsonObject().get("fahrenheit").getAsDouble();
+            double high = getForecastObject(dayIndex).get("high").getAsJsonObject().get("fahrenheit").getAsDouble();
 
             return high;
 
@@ -95,9 +93,7 @@ public class WundergroundForecastModel implements ForecastModel
 
     public double getDayLow(int dayIndex) {
 		if (jse7 != null) {
-            double low = jse7.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
-                    .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("low")
-                    .getAsJsonObject().get("fahrenheit").getAsDouble();
+            double low = getForecastObject(dayIndex).get("low").getAsJsonObject().get("fahrenheit").getAsDouble();
 
             return low;
 		} else {
@@ -108,9 +104,7 @@ public class WundergroundForecastModel implements ForecastModel
 
     public double getHum(int dayIndex) {
 		if (jse7 != null) {
-            double hum = jse7.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
-                    .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("avehumidity")
-                    .getAsDouble();
+            double hum = getForecastObject(dayIndex).get("avehumidity").getAsDouble();
 
             return hum;
 		} else {
@@ -118,4 +112,40 @@ public class WundergroundForecastModel implements ForecastModel
 			return hum;
 		}
 	}
+
+    public String getConditions(int dayIndex)
+    {
+        if(jse7 != null)
+        {
+            return getForecastObject(dayIndex).get("conditions").getAsString();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public double getWindspeed(int dayIndex)
+    {
+        if(jse7 != null)
+        {
+            return getForecastObject(dayIndex).get("avewind").getAsJsonObject().get("mph").getAsDouble();
+        }
+        else
+        {
+            return Double.NaN;
+        }
+    }
+
+    public String getWindDirection(int dayIndex)
+    {
+        if(jse7 != null)
+        {
+            return getForecastObject(dayIndex).get("avewind").getAsJsonObject().get("dir").getAsString();
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

@@ -12,6 +12,9 @@ public class ForecastColumn extends VPanel {
     private JLabel lowLabel;
     private JLabel highLabel;
     private JLabel conditionIcon;
+    private JLabel conditionLabel;
+    private JLabel windLabel;
+    private JLabel windDirectionLabel;
 
 	public ForecastColumn(int position) {
         if(position % 2 == 0) {
@@ -44,6 +47,17 @@ public class ForecastColumn extends VPanel {
         conditionIcon = new JLabel();
         conditionIcon.setHorizontalAlignment(JLabel.CENTER);
         add(conditionIcon);
+        conditionLabel = new JLabel();
+        conditionLabel.setMaximumSize(new Dimension(60, Integer.MAX_VALUE));
+        conditionLabel.setHorizontalAlignment(JLabel.CENTER);
+        add(conditionLabel);
+
+        windLabel = new JLabel();
+        windLabel.setHorizontalAlignment(JLabel.CENTER);
+        add(windLabel);
+        windDirectionLabel = new JLabel();
+        windDirectionLabel.setHorizontalAlignment(JLabel.CENTER);
+        add(windDirectionLabel);
 	}
 	
 	public void update(int position, Model model) {
@@ -53,5 +67,8 @@ public class ForecastColumn extends VPanel {
         lowLabel.setText(""+f.getDayLow(position));
         highLabel.setText(""+f.getDayHigh(position));
         conditionIcon.setIcon(IconHelper.getIcon(f.getIconString(position)));
+        conditionLabel.setText(f.getConditions(position));
+        windLabel.setText(f.getWindspeed(position)+" mph");
+        windDirectionLabel.setText(f.getWindDirection(position));
 	}
 }

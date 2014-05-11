@@ -5,4 +5,8 @@ public interface ForecastModel
     double getDayLow(int dayIndex);
     double getHum(int dayIndex);
     String getIconString(int dayIndex);
+    String getConditions(int dayIndex);
+    double getWindspeed(int dayIndex);
+    String getWindDirection(int dayIndex);
+
 }
