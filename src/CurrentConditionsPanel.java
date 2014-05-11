@@ -94,9 +94,6 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		JLabel speed = new JLabel("Wind speed: " + m.getWindSpeed());
 		speed.setFont(f);
 		canvas.add(speed, 175, 80);*/
-		
-		JButton refreshButton = new JButton("Refresh");
-	    canvas.add(refreshButton, 280, 170);
 	}
 
 
