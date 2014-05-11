@@ -1,9 +1,8 @@
-import acm.gui.HPanel;
+import acm.gui.TablePanel;
 import acm.gui.VPanel;
 import acm.program.Program;
 
 import javax.swing.*;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
@@ -15,25 +14,30 @@ public class GUI  extends Program
     private CurrentConditionsPanel currentConditions;
     private ForecastPanel forecast;
     private RadarPanel radar;
+    private Model model;
 
     public GUI()
 	{
 		this.start();
-		this.setSize(500, 700);
+		this.setSize(WeatherPanel.WIDTH, WeatherPanel.HEIGHT*3 + 100);
 		this.setTitle("5Cast");
 	}
 	
 	public void init()
 	{
-		VPanel slots = new VPanel();
+		VPanel slots = new VPanel(0,0);
 
-        JPanel searchArea = new HPanel();
-        searchField = new JTextField(10);
+        JPanel searchArea = new TablePanel(1,3);
+        searchField = new JTextField(25);
         searchField.setActionCommand("search");
         searchField.addActionListener(this);
-        JButton searchButton = new JButton("search");
+        JButton searchButton = new JButton(new ImageIcon("assets/search.png"));
+        searchButton.setActionCommand("search");
+        JButton refreshButton = new JButton(new ImageIcon("assets/refresh.png"));
+        refreshButton.setActionCommand("refresh");
         searchArea.add(searchField);
         searchArea.add(searchButton);
+        searchArea.add(refreshButton);
 
         currentConditions = new CurrentConditionsPanel();
         forecast = new ForecastPanel();
@@ -44,10 +48,10 @@ public class GUI  extends Program
 		slots.add(currentConditions);
 		slots.add(forecast);
 		slots.add(radar);
-		
-		currentConditions.setPreferredSize(new Dimension(500, 200));
-		forecast.setPreferredSize(new Dimension(500, 200));
-		radar.setPreferredSize(new Dimension(500, 200));
+
+		currentConditions.setPreferredSize(new Dimension(WeatherPanel.WIDTH, WeatherPanel.HEIGHT));
+		forecast.setPreferredSize(new Dimension(WeatherPanel.WIDTH, WeatherPanel.HEIGHT));
+		radar.setPreferredSize(new Dimension(WeatherPanel.WIDTH, WeatherPanel.HEIGHT));
 
         addActionListeners();
 
@@ -56,7 +60,8 @@ public class GUI  extends Program
         //TODO: get this from IP
         try
         {
-            updateLocation(new WundergroundModel("95747"));
+            model = new WundergroundModel("95747");
+            updateLocation(model);
         } catch (WundergroundModel.WundergroundException e)
         {
             e.printStackTrace();
@@ -75,13 +80,17 @@ public class GUI  extends Program
         {
             try
             {
-                Model m = new WundergroundModel(searchField.getText());
-                updateLocation(m);
+                model = new WundergroundModel(searchField.getText());
+                updateLocation(model);
             }
             catch (WundergroundModel.WundergroundException e)
             {
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+        }
+        if("refresh".equals(action))
+        {
+            model.refresh();
         }
     }
 
