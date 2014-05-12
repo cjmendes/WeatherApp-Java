@@ -1,6 +1,8 @@
 import javax.swing.*;
+
 import java.awt.*;
 
+@SuppressWarnings("serial")
 public class WindDirection extends JPanel
 {
     private double rotation;
