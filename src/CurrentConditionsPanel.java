@@ -39,7 +39,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		precipPercent.setForeground(Color.white);
 		canvas.add(precipPercent, 40, 110);
 		
-		feelsLike = new JLabel("Feels Like: ##.#ï¿½F");
+		feelsLike = new JLabel("Feels Like: ##.#°F");
 		feelsLike.setFont(smallFont);
 		feelsLike.setForeground(Color.white);
 		canvas.add(feelsLike, 40, 130);
@@ -54,12 +54,12 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		elevation.setForeground(Color.white);
 		canvas.add(elevation, 40, 170);
 		
-		highTemp = new JLabel( "High: ###.#ï¿½F");
+		highTemp = new JLabel( "High: ###.#°F");
 		highTemp.setFont(smallFont);
 		highTemp.setForeground(Color.white);
 		canvas.add(highTemp, 260, 10);
 		
-		lowTemp = new JLabel("Low: ###.#ï¿½F");
+		lowTemp = new JLabel("Low: ###.#°F");
 		lowTemp.setFont(smallFont);
 		lowTemp.setForeground(Color.white);
 		canvas.add(lowTemp, 260, 30);
@@ -95,15 +95,15 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		
 		double x = newModel.getTemperature();
 		int xInt = (int)x;
-		currentTemp.setText( xInt + "Â°F");
+		currentTemp.setText( xInt + "°F");
 		
 		conditionIcon.setIcon(IconHelper.getIcon(newModel.getIconText()+ "1"));
 		
 		conditionText.setText(newModel.getWeather());
 		
-		highTemp.setText("High: " + newModel.getDHigh(0) + "Â°F");
+		highTemp.setText("High: " + newModel.getDHigh(0) + "°F");
 		
-		lowTemp.setText("Low: " + newModel.getDLow(0) + "Â°F");
+		lowTemp.setText("Low: " + newModel.getDLow(0) + "°F");
 		
 		elevation.setText("Elevation: " + newModel.getElevation());
 		
@@ -111,7 +111,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		
 		precipPercent.setText("Precipitation: " + newModel.getPrecipitation() + " in");
 		
-		feelsLike.setText("Feels Like: " + newModel.getFeelsLike() + "Â°F");
+		feelsLike.setText("Feels Like: " + newModel.getFeelsLike() + "°F");
 		
 		windDir.setText("Wind Direction: " + newModel.getWindDir());
 		
