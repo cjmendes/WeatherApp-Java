@@ -2,12 +2,10 @@ import acm.graphics.GCanvas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
 @SuppressWarnings("serial")
 public class RadarPanel extends JPanel implements WeatherPanel {
 
-	private URL radarURL = null;
 	private JLabel radarLabel; 
 	
 	public RadarPanel() {
@@ -15,8 +13,6 @@ public class RadarPanel extends JPanel implements WeatherPanel {
 		radarCanvas.setPreferredSize(new Dimension(WeatherPanel.WIDTH, WeatherPanel.HEIGHT));
 		this.add(radarCanvas);
 		radarCanvas.setBackground(Color.darkGray);
-		
-			
 		
 		
 		radarLabel = new JLabel();
@@ -36,9 +32,5 @@ public class RadarPanel extends JPanel implements WeatherPanel {
 			
 			
 	}
-	/*
-	 * You need to get the URL from WundergroundModel getRadar() This Should
-	 * work...
-	 */
 
 }
