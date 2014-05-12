@@ -160,7 +160,7 @@ public class WundergroundModel implements Model {
     public String getPrecipitation() {
 		if (jse != null) {
 			String precipitation = jse.getAsJsonObject().get("current_observation")
-					.getAsJsonObject().get("precip_today_string").getAsString();
+					.getAsJsonObject().get("precip_today_in").getAsString();
 			return precipitation;
 		} else {
 			return null;
