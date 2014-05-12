@@ -20,7 +20,7 @@ public class GUI  extends Program
 	{
 		this.start();
 		this.setSize(WeatherPanel.WIDTH, WeatherPanel.HEIGHT*3 + 100);
-		this.setTitle("5Cast");
+		this.setTitle("5Cast: A Better Forecast!");
 	}
 	
 	public void init()
