@@ -66,23 +66,23 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		
 		conditionIcon = new JLabel("ICON");
 		conditionIcon.setForeground(Color.white);
-		conditionIcon.setPreferredSize(new Dimension(50, 50));
+		conditionIcon.setPreferredSize(new Dimension(109, 75));
 		canvas.add(conditionIcon, 260, 50);
 		
 		conditionText = new JLabel( "Partly Cloudy" );
 		conditionText.setFont(smallFont);
 		conditionText.setForeground(Color.white);
-		canvas.add(conditionText, 260, 100);
+		canvas.add(conditionText, 260, 130);
 		
-		windDir = new JLabel("Wind Direction: NNW");
+		windDir = new JLabel("Wind Direction: South");
 		windDir.setFont(smallFont);
 		windDir.setForeground(Color.white);
-		canvas.add(windDir, 260, 130);
+		canvas.add(windDir, 260, 150);
 		
 		windSpeed = new JLabel("Wind Speed: #.#mph");
 		windSpeed.setFont(smallFont);
 		windSpeed.setForeground(Color.white);
-		canvas.add(windSpeed, 260, 150);
+		canvas.add(windSpeed, 260, 170);
 		
 	}
 
@@ -95,9 +95,9 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		
 		currentTemp.setText(newModel.getTemperature() + "°F");
 		
-		conditionIcon.setIcon(IconHelper.getIcon(newModel.getIconText()));
+		conditionIcon.setIcon(IconHelper.getIcon(newModel.getIconText()+ "1"));
 		
-		conditionText.setText("   " + newModel.getWeather());
+		conditionText.setText(newModel.getWeather());
 		
 		highTemp.setText("High: " + newModel.getDHigh(0) + "°F");
 		
