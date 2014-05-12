@@ -214,7 +214,8 @@ public class WundergroundModel implements Model {
         return forecast;
     }
 
-    public class WundergroundException extends Exception
+    @SuppressWarnings("serial")
+	public class WundergroundException extends Exception
     {
         public WundergroundException(String message) {
             super(message);
