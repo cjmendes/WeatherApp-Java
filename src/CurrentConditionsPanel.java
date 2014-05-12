@@ -34,12 +34,12 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		canvas.setBackground(Color.darkGray);
 		canvas.add(currentTemp, 10, 30);
 		
-		precipPercent = new JLabel("Chance of Rain: ##%");
+		precipPercent = new JLabel("Chance of Rain: ##.# in");
 		precipPercent.setFont(smallFont);
 		precipPercent.setForeground(Color.white);
 		canvas.add(precipPercent, 40, 110);
 		
-		feelsLike = new JLabel("Feels Like: ##F");
+		feelsLike = new JLabel("Feels Like: ##.#°F");
 		feelsLike.setFont(smallFont);
 		feelsLike.setForeground(Color.white);
 		canvas.add(feelsLike, 40, 130);
@@ -49,17 +49,17 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		humidity.setForeground(Color.white);
 		canvas.add(humidity, 40, 150);
 		
-		elevation = new JLabel("Elevation: ##ft");
+		elevation = new JLabel("Elevation: #######ft");
 		elevation.setFont(smallFont);
 		elevation.setForeground(Color.white);
 		canvas.add(elevation, 40, 170);
 		
-		highTemp = new JLabel( "High: ####F");
+		highTemp = new JLabel( "High: ###.#°F");
 		highTemp.setFont(smallFont);
 		highTemp.setForeground(Color.white);
 		canvas.add(highTemp, 260, 10);
 		
-		lowTemp = new JLabel("Low: ####F");
+		lowTemp = new JLabel("Low: ###.#°F");
 		lowTemp.setFont(smallFont);
 		lowTemp.setForeground(Color.white);
 		canvas.add(lowTemp, 260, 30);
@@ -79,28 +79,17 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		windDir.setForeground(Color.white);
 		canvas.add(windDir, 260, 130);
 		
-		windSpeed = new JLabel("Wind Speed: " + windSpeed + "mph");
+		windSpeed = new JLabel("Wind Speed: #.#mph");
 		windSpeed.setFont(smallFont);
 		windSpeed.setForeground(Color.white);
 		canvas.add(windSpeed, 260, 150);
 		
-		
-		
-		/*JLabel sunny = new JLabel(m.getWeather());
-		Font f = new Font("Helvetica", Font.BOLD, 24);
-		sunny.setFont(f);
-		canvas.add(sunny, 175, 50);
-		
-		JLabel speed = new JLabel("Wind speed: " + m.getWindSpeed());
-		speed.setFont(f);
-		canvas.add(speed, 175, 80);*/
 	}
 
 
 	@Override
 	public void onLocationChanged(Model newModel) {
 		// This method will be called when a new location has been retrieved.
-		conditionText.setText(newModel.getWeather());
 		
 		windSpeed.setText("Wind Speed: " + newModel.getWindSpeed() + "mph");
 		
@@ -108,17 +97,17 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		
 		conditionIcon.setIcon(IconHelper.getIcon(newModel.getIconText()));
 		
-		conditionText.setText(newModel.getIconText());
+		conditionText.setText("   " + newModel.getWeather());
 		
 		highTemp.setText("High: " + newModel.getDHigh(0) + "°F");
 		
 		lowTemp.setText("Low: " + newModel.getDLow(0) + "°F");
 		
-		elevation.setText("Elevation: " + newModel.getElevation() + "ft");
+		elevation.setText("Elevation: " + newModel.getElevation());
 		
-		humidity.setText("Humidity: " + newModel.getHumidity() + "%");
+		humidity.setText("Humidity: " + newModel.getHumidity());
 		
-		precipPercent.setText("Precipitation: " + newModel.getPrecipitation() + "%");
+		precipPercent.setText("Precipitation: " + newModel.getPrecipitation() + " in");
 		
 		feelsLike.setText("Feels Like: " + newModel.getFeelsLike() + "°F");
 		
