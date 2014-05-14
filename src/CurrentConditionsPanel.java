@@ -12,6 +12,8 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 	
 	private JLabel currentTemp, highTemp, lowTemp, conditionIcon, conditionText;
 	private JLabel precipPercent, feelsLike, humidity, elevation, windDir, windSpeed;
+	private Model model;
+	public int lunarNum = 0;
 	public CurrentConditionsPanel()
 	{
 		
@@ -84,7 +86,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		lowTemp.setForeground(Color.white);
 		canvas.add(lowTemp, 380, 10);
 		
-		conditionIcon = new JLabel("ICON");
+		conditionIcon = new JLabel("");
 		conditionIcon.setForeground(Color.white);
 		conditionIcon.setPreferredSize(new Dimension(109, 75));
 		canvas.add(conditionIcon, 320, 40);
@@ -117,8 +119,9 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		int xInt = (int)x;
 		currentTemp.setText( xInt + "\u00B0F");
 		
+		//conditionIcon.setIcon(IconHelper.getIcon(newModel.getIconText()+ "1"));
 		
-		conditionIcon.setIcon(IconHelper.getIcon(newModel.getIconText()+ "1"));
+		changeLunarInfo(newModel);
 		
 		conditionText.setText(newModel.getWeather());
 		
@@ -136,5 +139,16 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		
 		windDir.setText("Wind Direction: " + newModel.getWindDir());
 		
+	}
+	
+	public void changeLunarInfo(Model newModel){
+		if (lunarNum == 0)
+		{
+			conditionIcon.setIcon(IconHelper.getIcon(newModel.getIconText() + "1"));
+		}
+		else
+		{
+			conditionIcon.setIcon(IconHelper.getIcon("" + newModel.getMoonPhase(0)));
+		}
 	}
 }

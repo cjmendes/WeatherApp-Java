@@ -20,7 +20,6 @@ public class WundergroundModel implements Model {
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement weatherJson = null;
 	private URL radarURL = null;
-
     private URL weatherURL;
 
 	public WundergroundModel(String query) throws WundergroundException {
@@ -305,8 +304,10 @@ public class WundergroundModel implements Model {
     {
         if(weatherJson != null)
         {
-        	return weatherJson.getAsJsonObject().get("moon_phase")
+        	int moonphase = weatherJson.getAsJsonObject().get("moon_phase")
             .getAsJsonObject().get("percentIlluminated").getAsInt();
+        	moonphase = moonphase - (dayIndex * 7); 
+        	return moonphase;
         }
         else
         {

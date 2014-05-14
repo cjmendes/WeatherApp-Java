@@ -133,6 +133,7 @@ public class GUI  extends Program
         }
         if("switch".equals(action))
         {
+        	changeLunar();
         	//TODO: Replace currentCondition info with lunar info
         }
     }
@@ -178,6 +179,17 @@ public class GUI  extends Program
         {
             e.printStackTrace();
         }
+    }
+    
+    private void changeLunar()
+    {
+        if(currentConditions.lunarNum == 0)
+        	currentConditions.lunarNum++;
+        else 
+        	currentConditions.lunarNum--;
+        
+        currentConditions.changeLunarInfo(model);
+        //forecast.onLocationChanged(model);
     }
 
     private void updateLocation(Model m)

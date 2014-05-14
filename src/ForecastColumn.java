@@ -2,6 +2,7 @@ import acm.gui.HPanel;
 import acm.gui.VPanel;
 
 import javax.swing.*;
+
 import java.awt.*;
 
 @SuppressWarnings("serial")
@@ -14,6 +15,7 @@ public class ForecastColumn extends VPanel {
     private JLabel conditionLabel;
     private JLabel windLabel;
     private WindDirection windDirection;
+    private CurrentConditionsPanel curr;
 
 	public ForecastColumn(int position) {
         if(position % 2 == 0) {
@@ -71,7 +73,20 @@ public class ForecastColumn extends VPanel {
         highLabel.setText("" + model.getDayHigh(position));
         conditionIcon.setIcon(IconHelper.getIcon(model.getIconString(position)));
         //conditionLabel.setText(f.getConditions(position));
+        //updateLunarInfo(position, model);
         windLabel.setText(model.getWindspeed(position) + " mph");
         windDirection.setAngle(model.getWindDirection(position));
 	}
+	
+	//TODO:
+	/*public void updateLunarInfo(int position, Model newModel){
+		if (curr.lunarNum == 0)
+		{
+			conditionIcon.setIcon(IconHelper.getIcon(newModel.getIconString(position)));
+		}
+		else
+		{
+			conditionIcon.setIcon(IconHelper.getIcon("" + newModel.getMoonPhase(position)));
+		}
+	}*/
 }
