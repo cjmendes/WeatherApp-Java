@@ -12,7 +12,7 @@ public class GUI  extends Program
 
     private JTextField searchField;
     private CurrentConditionsPanel currentConditions;
-    private ForecastPanel forecast, moonphase;
+    private ForecastPanel forecast;
     private RadarPanel radar;
     private Model model;
 
