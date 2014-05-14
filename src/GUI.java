@@ -1,14 +1,21 @@
+import acm.graphics.GImage;
 import acm.gui.TablePanel;
 import acm.gui.VPanel;
 import acm.program.Program;
 
 import javax.swing.*;
+
+import com.sun.imageio.plugins.common.ImageUtil;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 
 @SuppressWarnings("serial")
 public class GUI  extends Program
 {
+	
+	private Image background;
 
     private JTextField searchField;
     private JLabel locationLabel;
@@ -21,8 +28,25 @@ public class GUI  extends Program
     public GUI()
 	{
 		this.start();
+		
+		try
+		{
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        MediaTracker tracker = new MediaTracker(this);
+        background = toolkit.getImage("assets/bg/Background.png");
+        tracker.addImage(background,0);
+        tracker.waitForAll();
+		}
+		catch(InterruptedException e)
+		{
+			e.printStackTrace();
+		
+		}
+        
+		this.setSize(500,700);
 		this.setSize(WeatherPanel.WIDTH+17, WeatherPanel.HEIGHT*3 + 85);
 		this.setTitle("5Cast: A Better Forecast!");
+		
 	}
 	
 	public void init()
@@ -72,8 +96,14 @@ public class GUI  extends Program
         addActionListeners();
 
         useLocation();
+        
+       
     }
 	
+	public void paintComponents(Graphics g)
+	{
+		g.drawImage(background,0,0,null);
+	}
 	public static void main(String[] args)
 	{
 		new GUI();

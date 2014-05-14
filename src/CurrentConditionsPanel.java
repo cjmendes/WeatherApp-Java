@@ -1,4 +1,5 @@
 import acm.graphics.GCanvas;
+import acm.graphics.GImage;
 
 import javax.swing.*;
 
@@ -44,6 +45,8 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		Font conditionFont = new Font("VERDANA", Font.LAYOUT_LEFT_TO_RIGHT, 70);
 		Font smallFont = new Font("TAHOMA", Font.CENTER_BASELINE, 11);
 
+		GImage background = new GImage("assets/bg/Background.png");
+		canvas.add(background);
 		
 		currentTemp = new JLabel("Current Temp");
 		currentTemp.setFont(conditionFont);
