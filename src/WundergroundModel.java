@@ -22,7 +22,7 @@ public class WundergroundModel implements Model {
 	private URL radarURL = null;
     private ForecastModel forecast, lunar;
 
-    private URL weatherURL, forecastURL, lunarURL;
+    private URL weatherURL;
 
 	public WundergroundModel(String query) throws WundergroundException {
 
