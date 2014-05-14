@@ -29,7 +29,7 @@ public class GUI  extends Program
 	{
 		VPanel slots = new VPanel(0,0);
 
-        JPanel searchArea = new TablePanel(2,4);
+        JPanel searchArea = new TablePanel(2,5);
         searchField = new JTextField(25);
         //TODO: add ghost text in textfield
 //        PromptSupport.setPrompt("Enter zipcode here", searchField);
@@ -37,6 +37,8 @@ public class GUI  extends Program
         searchField.addActionListener(this);
         JButton searchButton = new JButton(new ImageIcon("assets/search.png"));
         searchButton.setActionCommand("search");
+        JButton locationButton = new JButton(new ImageIcon("assets/location.png"));
+        locationButton.setActionCommand("locate");
         JButton refreshButton = new JButton(new ImageIcon("assets/refresh.png"));
         refreshButton.setActionCommand("refresh");
         JButton lunarButton = new JButton(new ImageIcon("assets/moon.png"));
@@ -48,9 +50,10 @@ public class GUI  extends Program
 
         searchArea.add(searchField);
         searchArea.add(searchButton);
+        searchArea.add(locationButton);
         searchArea.add(refreshButton);
         searchArea.add(lunarButton);
-        searchArea.add(locationLabel, "gridwidth=4");
+        searchArea.add(locationLabel, "gridwidth=5");
 
         currentConditions = new CurrentConditionsPanel();
         forecast = new ForecastPanel();
@@ -68,17 +71,7 @@ public class GUI  extends Program
 
         addActionListeners();
 
-
-        // Load initial location
-        //TODO: get this from IP
-        try 
-        {
-            model = new WundergroundModel("95677");
-            updateLocation(model);
-        } catch (WundergroundModel.WundergroundException e)
-        {
-            e.printStackTrace();
-        }
+        useLocation();
     }
 	
 	public static void main(String[] args)
@@ -101,13 +94,37 @@ public class GUI  extends Program
                 JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
+        if("locate".equals(action))
+        {
+            useLocation();
+        }
         if("refresh".equals(action))
         {
-            model.refresh();
+            try
+            {
+                model.refresh();
+            }
+            catch (WundergroundModel.WundergroundException e)
+            {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
         if("switch".equals(action))
         {
         	//TODO: Replace currentCondition info with lunar info
+        }
+    }
+
+    private void useLocation()
+    {
+        try
+        {
+            model = new WundergroundModel("autoip");
+            searchField.setText(model.getLocation());
+            updateLocation(model);
+        } catch (WundergroundModel.WundergroundException e)
+        {
+            e.printStackTrace();
         }
     }
 

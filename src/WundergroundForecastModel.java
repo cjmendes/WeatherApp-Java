@@ -26,7 +26,7 @@ public class WundergroundForecastModel implements ForecastModel
 			String zip = URLEncoder.encode(zipcode, "utf-8");
 
 			// Construct Weather API URL
-			sevendayURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/forecast10day/q/CA/" + zip + ".json");
+			sevendayURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/forecast10day/q/" + zip + ".json");
 			
 		} catch (java.io.UnsupportedEncodingException uee) {
 			uee.printStackTrace();

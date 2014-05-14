@@ -17,5 +17,5 @@ public interface Model {
     ForecastModel getForecast();
     ForecastModel getLunarPhase();
 
-    void refresh();
+    void refresh() throws WundergroundModel.WundergroundException;
 }

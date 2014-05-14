@@ -23,29 +23,29 @@ public class WundergroundModel implements Model {
 
     private URL weatherURL, forecastURL, lunarURL;
 
-	public WundergroundModel(String zipcode) throws WundergroundException {
+	public WundergroundModel(String query) throws WundergroundException {
 
 
 		try 
 		{
 			// Encode given URL -- could throw UnsupportedEncodingException
-			String zip = URLEncoder.encode(zipcode, "utf-8");
+			query = URLEncoder.encode(query, "utf-8");
 
 			// Construct Weather API URL
-			weatherURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/conditions/q/" + zip + ".json");
+			weatherURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/conditions/q/" + query + ".json");
 
 		    // forecast URL to get the day high's and low's
-			forecastURL = new URL("http://api.wunderground.com/api/"+ ACCESS_TOKEN + "/forecast/q/"+ zip +".json");
+			forecastURL = new URL("http://api.wunderground.com/api/"+ ACCESS_TOKEN + "/forecast/q/"+ query +".json");
 
-			radarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/animatedradar/q/" + zip + ".gif?width="+WeatherPanel.WIDTH+"&height="+WeatherPanel.HEIGHT+"&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
+			radarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/animatedradar/q/" + query + ".gif?width="+WeatherPanel.WIDTH+"&height="+WeatherPanel.HEIGHT+"&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
 
 			//Construct Astronomy API URL
-			lunarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/astronomy/q/" + zip + ".json");
+			lunarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/astronomy/q/" + query + ".json");
 			
             
-			forecast = new WundergroundForecastModel(zipcode);
+			forecast = new WundergroundForecastModel(query);
             
-            lunar = new WundergroundForecastModel(zipcode);
+            lunar = new WundergroundForecastModel(query);
 
             refresh();
         } catch (java.io.UnsupportedEncodingException uee) {
@@ -53,16 +53,9 @@ public class WundergroundModel implements Model {
 		} catch (java.net.MalformedURLException mue) {
 			mue.printStackTrace();
 		}
-
-        if(weatherJson != null) {
-            if(weatherJson.getAsJsonObject().get("response").getAsJsonObject().has("error")) {
-                throw new WundergroundException(weatherJson.getAsJsonObject().get("response").getAsJsonObject().get("error").getAsJsonObject().get("description").getAsString());
-            }
-        }
-
 	}
 
-    public void refresh()
+    public void refresh() throws WundergroundException
     {
         try {
             // Open the URL
@@ -79,6 +72,16 @@ public class WundergroundModel implements Model {
             weatherJson = new JsonParser().parse(br);
             forecastJson = new JsonParser().parse(br2);
             lunarJson = new JsonParser().parse(br3);
+
+            // Check for ambiguous results
+            if(weatherJson != null) {
+                if(weatherJson.getAsJsonObject().get("response").getAsJsonObject().has("error")) {
+                    throw new WundergroundException(weatherJson.getAsJsonObject().get("response").getAsJsonObject().get("error").getAsJsonObject().get("description").getAsString());
+                }
+                if(weatherJson.getAsJsonObject().get("response").getAsJsonObject().has("results")) {
+                    throw new WundergroundException("Multiple results found for query. Please be more specific.");
+                }
+            }
 
             // Grab forecast data
             forecast.refresh();
