@@ -28,6 +28,8 @@ public class ForecastPanel extends HPanel implements WeatherPanel {
 	public void onLocationChanged(Model newModel) {
 		for(int i = 0; i < NUM_COLS; i++) {
 			days[i].update(i, newModel);
+			//TODO:
+			//days[i].updateLunarInfo(i, newModel);
 		}
 	}
 }
