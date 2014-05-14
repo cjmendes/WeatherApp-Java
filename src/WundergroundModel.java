@@ -17,10 +17,11 @@ public class WundergroundModel implements Model {
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement jse = null;
 	private JsonElement jse2 = null;
+	private JsonElement jse3 = null;
 	private URL radarURL = null;
-    private ForecastModel forecast;
+    private ForecastModel forecast, lunar;
 
-    private URL weatherURL, forecastURL;
+    private URL weatherURL, forecastURL, lunarURL;
 
 	public WundergroundModel(String zipcode) throws WundergroundException {
 
@@ -38,7 +39,13 @@ public class WundergroundModel implements Model {
 
 			radarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/animatedradar/q/" + zip + ".gif?width="+WeatherPanel.WIDTH+"&height="+WeatherPanel.HEIGHT+"&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
 
-            forecast = new WundergroundForecastModel(zipcode);
+			//Construct Astronomy API URL
+			lunarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/astronomy/q/" + zip + ".json");
+			
+            
+			forecast = new WundergroundForecastModel(zipcode);
+            
+            lunar = new WundergroundForecastModel(zipcode);
 
             refresh();
         } catch (java.io.UnsupportedEncodingException uee) {
@@ -64,10 +71,14 @@ public class WundergroundModel implements Model {
 
             InputStream is2 = forecastURL.openStream();
             BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
+            
+            InputStream is3 = lunarURL.openStream();
+            BufferedReader br3 = new BufferedReader(new InputStreamReader(is3));
 
             // Read the result into a JSON Element
             jse = new JsonParser().parse(br);
             jse2 = new JsonParser().parse(br2);
+            jse3 = new JsonParser().parse(br3);
 
             // Grab forecast data
             forecast.refresh();
@@ -77,6 +88,8 @@ public class WundergroundModel implements Model {
             br.close();
             is2.close();
             br2.close();
+            is3.close();
+            br3.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -199,6 +212,19 @@ public class WundergroundModel implements Model {
 		}
 	}
     
+    public int getMoonPhase(int dayIndex)
+    {
+        if(jse3 != null)
+        {
+        	return jse3.getAsJsonObject().get("moon_phase")
+            .getAsJsonObject().get("percentIlluminated").getAsInt();
+        }
+        else
+        {
+            return -1;
+        }
+    }
+    
 	public URL getRadar() {
 		if (radarURL != null) {
 			return radarURL;
@@ -212,6 +238,11 @@ public class WundergroundModel implements Model {
     public ForecastModel getForecast()
     {
         return forecast;
+    }
+    
+    public ForecastModel getLunarPhase()
+    {
+    	return lunar;
     }
 
     @SuppressWarnings("serial")

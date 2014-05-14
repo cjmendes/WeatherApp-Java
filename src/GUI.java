@@ -12,7 +12,7 @@ public class GUI  extends Program
 
     private JTextField searchField;
     private CurrentConditionsPanel currentConditions;
-    private ForecastPanel forecast;
+    private ForecastPanel forecast, moonphase;
     private RadarPanel radar;
     private Model model;
 
@@ -29,6 +29,8 @@ public class GUI  extends Program
 
         JPanel searchArea = new TablePanel(1,4);
         searchField = new JTextField(25);
+        //TODO: add ghost text in textfield
+        //PromptSupport.setPrompt("Enter zipcode here", searchField);
         searchField.setActionCommand("search");
         searchField.addActionListener(this);
         JButton searchButton = new JButton(new ImageIcon("assets/search.png"));
@@ -61,7 +63,7 @@ public class GUI  extends Program
 
         // Load initial location
         //TODO: get this from IP
-        try
+        try 
         {
             model = new WundergroundModel("95747");
             updateLocation(model);
@@ -94,6 +96,10 @@ public class GUI  extends Program
         if("refresh".equals(action))
         {
             model.refresh();
+        }
+        if("switch".equals(action))
+        {
+        	//TODO: Replace currentCondition info with lunar info
         }
     }
 
