@@ -17,17 +17,14 @@ public class ForecastColumn extends VPanel {
     private JLabel conditionLabel;
     private JLabel windLabel;
     private WindDirection windDirection;
-<<<<<<< mine
     private Font CT2Font;
-=======
     private CurrentConditionsPanel curr;
 
->>>>>>> theirs
 	public ForecastColumn(int position) {
         if(position % 2 == 0) {
-            setBackground(Color.WHITE);
+            setBackground(new Color(255, 255, 255, 150));
         } else {
-            setBackground(Color.LIGHT_GRAY);
+            setBackground(new Color(200, 200, 200, 150));
         }
 
        
