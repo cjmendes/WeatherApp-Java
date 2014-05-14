@@ -15,9 +15,9 @@ public class WundergroundModel implements Model {
 	 * Loren's Key: 4a505977e3e86a2c Chris's Key: 0757ee8cfe589f60 Derek's Key: 5faf852c94c0fe7a
 	 */
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
-	private JsonElement jse = null;
-	private JsonElement jse2 = null;
-	private JsonElement jse3 = null;
+	private JsonElement weatherJson = null;
+	private JsonElement forecastJson = null;
+	private JsonElement lunarJson = null;
 	private URL radarURL = null;
     private ForecastModel forecast, lunar;
 
@@ -54,9 +54,9 @@ public class WundergroundModel implements Model {
 			mue.printStackTrace();
 		}
 
-        if(jse != null) {
-            if(jse.getAsJsonObject().get("response").getAsJsonObject().has("error")) {
-                throw new WundergroundException(jse.getAsJsonObject().get("response").getAsJsonObject().get("error").getAsJsonObject().get("description").getAsString());
+        if(weatherJson != null) {
+            if(weatherJson.getAsJsonObject().get("response").getAsJsonObject().has("error")) {
+                throw new WundergroundException(weatherJson.getAsJsonObject().get("response").getAsJsonObject().get("error").getAsJsonObject().get("description").getAsString());
             }
         }
 
@@ -76,9 +76,9 @@ public class WundergroundModel implements Model {
             BufferedReader br3 = new BufferedReader(new InputStreamReader(is3));
 
             // Read the result into a JSON Element
-            jse = new JsonParser().parse(br);
-            jse2 = new JsonParser().parse(br2);
-            jse3 = new JsonParser().parse(br3);
+            weatherJson = new JsonParser().parse(br);
+            forecastJson = new JsonParser().parse(br2);
+            lunarJson = new JsonParser().parse(br3);
 
             // Grab forecast data
             forecast.refresh();
@@ -96,8 +96,8 @@ public class WundergroundModel implements Model {
     }
 
     public String getWeather() {
-		if (jse != null) {
-			String weather = jse.getAsJsonObject().get("current_observation")
+		if (weatherJson != null) {
+			String weather = weatherJson.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("weather").getAsString();
 			return weather;
 		} else {
@@ -106,8 +106,8 @@ public class WundergroundModel implements Model {
 	}
 
     public double getTemperature() {
-		if (jse != null) {
-			double temp = jse.getAsJsonObject().get("current_observation")
+		if (weatherJson != null) {
+			double temp = weatherJson.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("temp_f").getAsDouble();
 			return temp;
 		} else {
@@ -117,8 +117,8 @@ public class WundergroundModel implements Model {
 	}
     
     public double getDHigh(int dayIndex) {
-		if (jse != null) {
-			double dayhigh = jse2.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
+		if (weatherJson != null) {
+			double dayhigh = forecastJson.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
                     .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("high")
                     .getAsJsonObject().get("fahrenheit").getAsDouble();
 			return dayhigh;
@@ -128,8 +128,8 @@ public class WundergroundModel implements Model {
 		}
 	}
     public double getDLow(int dayIndex) {
-		if (jse != null) {
-			double daylow = jse2.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
+		if (weatherJson != null) {
+			double daylow = forecastJson.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
                     .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("low")
                     .getAsJsonObject().get("fahrenheit").getAsDouble();
 			return daylow;
@@ -140,8 +140,8 @@ public class WundergroundModel implements Model {
 	}
     
     public String getIconText() {
-		if (jse != null) {
-			String icon = jse.getAsJsonObject().get("current_observation")
+		if (weatherJson != null) {
+			String icon = weatherJson.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("icon").getAsString();
 			return icon;
 		} else {
@@ -150,8 +150,8 @@ public class WundergroundModel implements Model {
 	}
     
     public String getElevation() {
-		if (jse != null) {
-			String elevation = jse.getAsJsonObject().get("current_observation")
+		if (weatherJson != null) {
+			String elevation = weatherJson.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("observation_location")
 					.getAsJsonObject().get("elevation").getAsString();
 			return elevation;
@@ -161,8 +161,8 @@ public class WundergroundModel implements Model {
 	}
     
     public String getHumidity() {
-		if (jse != null) {
-			String humidity = jse.getAsJsonObject().get("current_observation")
+		if (weatherJson != null) {
+			String humidity = weatherJson.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("relative_humidity").getAsString();
 			return humidity;
 		} else {
@@ -171,8 +171,8 @@ public class WundergroundModel implements Model {
 	}
     
     public String getPrecipitation() {
-		if (jse != null) {
-			String precipitation = jse.getAsJsonObject().get("current_observation")
+		if (weatherJson != null) {
+			String precipitation = weatherJson.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("precip_today_in").getAsString();
 			return precipitation;
 		} else {
@@ -181,8 +181,8 @@ public class WundergroundModel implements Model {
 	}
     
     public double getFeelsLike() {
-		if (jse != null) {
-			double feelsLike = jse.getAsJsonObject().get("current_observation")
+		if (weatherJson != null) {
+			double feelsLike = weatherJson.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("feelslike_f").getAsDouble();
 			return feelsLike;
 		} else {
@@ -192,8 +192,8 @@ public class WundergroundModel implements Model {
 	}
     
     public String getWindDir() {
-		if (jse != null) {
-			String windDir = jse.getAsJsonObject().get("current_observation")
+		if (weatherJson != null) {
+			String windDir = weatherJson.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("wind_dir").getAsString();
 			return windDir;
 		} else {
@@ -202,8 +202,8 @@ public class WundergroundModel implements Model {
 	}
 
     public double getWindSpeed() {
-		if (jse != null) {
-			double windmph = jse.getAsJsonObject().get("current_observation")
+		if (weatherJson != null) {
+			double windmph = weatherJson.getAsJsonObject().get("current_observation")
 					.getAsJsonObject().get("wind_mph").getAsDouble();
 			return windmph;
 		} else {
@@ -214,9 +214,9 @@ public class WundergroundModel implements Model {
     
     public int getMoonPhase(int dayIndex)
     {
-        if(jse3 != null)
+        if(lunarJson != null)
         {
-        	return jse3.getAsJsonObject().get("moon_phase")
+        	return lunarJson.getAsJsonObject().get("moon_phase")
             .getAsJsonObject().get("percentIlluminated").getAsInt();
         }
         else
@@ -233,6 +233,15 @@ public class WundergroundModel implements Model {
 			return radarURL;
 		}
 	}
+
+    public String getLocation() {
+        if(weatherJson != null) {
+            return weatherJson.getAsJsonObject().get("current_observation").getAsJsonObject().get("display_location")
+                    .getAsJsonObject().get("full").getAsString();
+        } else {
+            return null;
+        }
+    }
 
     @Override
     public ForecastModel getForecast()

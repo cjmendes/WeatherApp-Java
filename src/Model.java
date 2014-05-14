@@ -13,6 +13,7 @@ public interface Model {
     String getWindDir();
     double getWindSpeed();
     URL getRadar();
+    String getLocation();
     ForecastModel getForecast();
     ForecastModel getLunarPhase();
 
