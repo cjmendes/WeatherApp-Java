@@ -66,13 +66,12 @@ public class ForecastColumn extends VPanel {
 	
 	public void update(int position, Model model) {
 		// Update the various components here.
-        ForecastModel f = model.getForecast();
-        dayLabel.setText(f.getDay(position));
-        lowLabel.setText(""+f.getDayLow(position));
-        highLabel.setText("" + f.getDayHigh(position));
-        conditionIcon.setIcon(IconHelper.getIcon(f.getIconString(position)));
+        dayLabel.setText(model.getDay(position));
+        lowLabel.setText("" + model.getDayLow(position));
+        highLabel.setText("" + model.getDayHigh(position));
+        conditionIcon.setIcon(IconHelper.getIcon(model.getIconString(position)));
         //conditionLabel.setText(f.getConditions(position));
-        windLabel.setText(f.getWindspeed(position)+" mph");
-        windDirection.setAngle(f.getWindDirection(position));
+        windLabel.setText(model.getWindspeed(position) + " mph");
+        windDirection.setAngle(model.getWindDirection(position));
 	}
 }
