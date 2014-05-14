@@ -8,7 +8,7 @@ public interface Model {
     String getIconText();
     String getElevation();
     String getHumidity();
-    String getPrecipitation();
+    double getPrecipitation();
     double getFeelsLike();
     String getWindDir();
     double getWindSpeed();
