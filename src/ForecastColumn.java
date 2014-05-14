@@ -36,7 +36,7 @@ public class ForecastColumn extends VPanel {
         lowLabel.setForeground(Color.blue);
         lowLabel.setFont(smallFont);
         tempArea.add(lowLabel);
-        tempArea.add(new JLabel("|"));
+        tempArea.add(new JLabel("  |"));
         highLabel = new JLabel();
         highLabel.setForeground(Color.red);
         highLabel.setFont(smallFont);
@@ -47,11 +47,13 @@ public class ForecastColumn extends VPanel {
         conditionIcon = new JLabel();
         conditionIcon.setHorizontalAlignment(JLabel.CENTER);
         add(conditionIcon);
+        /*
         conditionLabel = new JLabel();
         conditionLabel.setMaximumSize(new Dimension(60, Integer.MAX_VALUE));
         conditionLabel.setHorizontalAlignment(JLabel.CENTER);
         conditionLabel.setFont(smallFont);
         add(conditionLabel);
+        */
 
         windLabel = new JLabel();
         windLabel.setHorizontalAlignment(JLabel.CENTER);
@@ -69,7 +71,7 @@ public class ForecastColumn extends VPanel {
         lowLabel.setText(""+f.getDayLow(position));
         highLabel.setText("" + f.getDayHigh(position));
         conditionIcon.setIcon(IconHelper.getIcon(f.getIconString(position)));
-        conditionLabel.setText(f.getConditions(position));
+        //conditionLabel.setText(f.getConditions(position));
         windLabel.setText(f.getWindspeed(position)+" mph");
         windDirection.setAngle(f.getWindDirection(position));
 	}
