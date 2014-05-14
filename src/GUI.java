@@ -11,6 +11,8 @@ public class GUI  extends Program
 {
 
     private JTextField searchField;
+    private JLabel locationLabel;
+
     private CurrentConditionsPanel currentConditions;
     private ForecastPanel forecast;
     private RadarPanel radar;
@@ -19,7 +21,7 @@ public class GUI  extends Program
     public GUI()
 	{
 		this.start();
-		this.setSize(WeatherPanel.WIDTH+17, WeatherPanel.HEIGHT*3 + 100);
+		this.setSize(WeatherPanel.WIDTH+17, WeatherPanel.HEIGHT*3 + 85);
 		this.setTitle("5Cast: A Better Forecast!");
 	}
 	
@@ -27,10 +29,10 @@ public class GUI  extends Program
 	{
 		VPanel slots = new VPanel(0,0);
 
-        JPanel searchArea = new TablePanel(1,4);
+        JPanel searchArea = new TablePanel(2,4);
         searchField = new JTextField(25);
         //TODO: add ghost text in textfield
-        //PromptSupport.setPrompt("Enter zipcode here", searchField);
+//        PromptSupport.setPrompt("Enter zipcode here", searchField);
         searchField.setActionCommand("search");
         searchField.addActionListener(this);
         JButton searchButton = new JButton(new ImageIcon("assets/search.png"));
@@ -39,10 +41,16 @@ public class GUI  extends Program
         refreshButton.setActionCommand("refresh");
         JButton lunarButton = new JButton(new ImageIcon("assets/moon.png"));
         lunarButton.setActionCommand("switch");
+        locationLabel = new JLabel();
+        locationLabel.setHorizontalAlignment(JLabel.CENTER);
+        Font locationFont = new Font("Verdana", Font.BOLD, 24);
+        locationLabel.setFont(locationFont);
+
         searchArea.add(searchField);
         searchArea.add(searchButton);
         searchArea.add(refreshButton);
         searchArea.add(lunarButton);
+        searchArea.add(locationLabel, "gridwidth=4");
 
         currentConditions = new CurrentConditionsPanel();
         forecast = new ForecastPanel();
@@ -65,7 +73,7 @@ public class GUI  extends Program
         //TODO: get this from IP
         try 
         {
-            model = new WundergroundModel("95747");
+            model = new WundergroundModel("95677");
             updateLocation(model);
         } catch (WundergroundModel.WundergroundException e)
         {
@@ -105,6 +113,8 @@ public class GUI  extends Program
 
     private void updateLocation(Model m)
     {
+        locationLabel.setText(m.getLocation());
+
         currentConditions.onLocationChanged(m);
         forecast.onLocationChanged(m);
         radar.onLocationChanged(m);
