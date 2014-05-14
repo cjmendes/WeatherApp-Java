@@ -168,13 +168,16 @@ public class WundergroundModel implements Model {
 		}
 	}
     
-    public String getPrecipitation() {
+    public double getPrecipitation() {
 		if (weatherJson != null) {
-			String precipitation = weatherJson.getAsJsonObject().get("current_observation")
-					.getAsJsonObject().get("precip_today_in").getAsString();
+			double precipitation = weatherJson.getAsJsonObject().get("current_observation")
+					.getAsJsonObject().get("precip_today_in").getAsDouble();
+			if(precipitation < 0)
+				precipitation = 0.00;
 			return precipitation;
 		} else {
-			return null;
+			Double precipitation = Double.NaN;
+			return precipitation;
 		}
 	}
     
