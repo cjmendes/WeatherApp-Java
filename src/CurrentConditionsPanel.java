@@ -51,17 +51,17 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		canvas.setBackground(Color.darkGray);
 		canvas.add(currentTemp, 30, 10);
 		
-		precipPercent = new JLabel("Chance of Rain: ##.# in");
+		precipPercent = new JLabel("Precipitation: ###.# in");
 		precipPercent.setFont(smallFont);
 		precipPercent.setForeground(Color.white);
 		canvas.add(precipPercent, 40, 110);
 		
-		feelsLike = new JLabel("Feels Like: ##.#\u00B0F");
+		feelsLike = new JLabel("Feels Like: ###.#\u00B0F");
 		feelsLike.setFont(smallFont);
 		feelsLike.setForeground(Color.white);
 		canvas.add(feelsLike, 45, 130);
 		
-		humidity = new JLabel("Humidity: ##%");
+		humidity = new JLabel("Humidity: ###%");
 		humidity.setFont(smallFont);
 		humidity.setForeground(Color.white);
 		canvas.add(humidity, 50, 150);
@@ -86,17 +86,17 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		conditionIcon.setPreferredSize(new Dimension(109, 75));
 		canvas.add(conditionIcon, 320, 40);
 		
-		conditionText = new JLabel( "Partly Cloudy" );
+		conditionText = new JLabel( "Something went very wrong here!" );
 		conditionText.setFont(smallFont);
 		conditionText.setForeground(Color.white);
 		canvas.add(conditionText, 350, 120);
 		
-		windDir = new JLabel("Wind Direction: South");
+		windDir = new JLabel("Wind Direction: ToTheUniverseAndBeyond");
 		windDir.setFont(smallFont);
 		windDir.setForeground(Color.white);
 		canvas.add(windDir, 300, 140);
 		
-		windSpeed = new JLabel("Wind Speed: #.#mph");
+		windSpeed = new JLabel("Wind Speed: ###.#mph");
 		windSpeed.setFont(smallFont);
 		windSpeed.setForeground(Color.white);
 		canvas.add(windSpeed, 300, 165);
