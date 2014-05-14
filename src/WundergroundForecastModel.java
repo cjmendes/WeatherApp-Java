@@ -27,7 +27,7 @@ public class WundergroundForecastModel implements ForecastModel
 
 			// Construct Weather API URL
 			sevendayURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/forecast10day/q/CA/" + zip + ".json");
-
+			
 		} catch (java.io.UnsupportedEncodingException uee) {
 			uee.printStackTrace();
 		} catch (java.net.MalformedURLException mue) {
