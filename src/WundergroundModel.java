@@ -1,5 +1,6 @@
-
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.BufferedReader;
@@ -8,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WundergroundModel implements Model {
 
@@ -28,6 +31,10 @@ public class WundergroundModel implements Model {
 
 		try 
 		{
+            // Do these guys before we encode to avoid double encoding
+            forecast = new WundergroundForecastModel(query);
+
+            lunar = new WundergroundForecastModel(query);
 			// Encode given URL -- could throw UnsupportedEncodingException
 			query = URLEncoder.encode(query, "utf-8");
 
@@ -41,11 +48,6 @@ public class WundergroundModel implements Model {
 
 			//Construct Astronomy API URL
 			lunarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/astronomy/q/" + query + ".json");
-			
-            
-			forecast = new WundergroundForecastModel(query);
-            
-            lunar = new WundergroundForecastModel(query);
 
             refresh();
         } catch (java.io.UnsupportedEncodingException uee) {
@@ -79,7 +81,26 @@ public class WundergroundModel implements Model {
                     throw new WundergroundException(weatherJson.getAsJsonObject().get("response").getAsJsonObject().get("error").getAsJsonObject().get("description").getAsString());
                 }
                 if(weatherJson.getAsJsonObject().get("response").getAsJsonObject().has("results")) {
-                    throw new WundergroundException("Multiple results found for query. Please be more specific.");
+                    ArrayList<String> locationNames = new ArrayList<String>();
+                    ArrayList<String> locationCodes = new ArrayList<String>();
+
+                    JsonArray resultArray = weatherJson.getAsJsonObject().get("response").getAsJsonObject().get("results").getAsJsonArray();
+                    for(int i = 0; i < resultArray.size(); i++) {
+                        JsonObject result = resultArray.get(i).getAsJsonObject();
+                        String code = "zmw:"+result.get("zmw").getAsString();
+                        String city = result.get("city").getAsString();
+                        String state = result.get("state").getAsString();
+                        String country = result.get("country_name").getAsString();
+
+                        String name = city+", ";
+                        if(!state.isEmpty()) name+= state+", ";
+                        name += country;
+
+                        locationNames.add(i, name);
+                        locationCodes.add(i, code);
+                    }
+
+                    throw new MultipleResultsException(locationNames, locationCodes);
                 }
             }
 
@@ -262,6 +283,29 @@ public class WundergroundModel implements Model {
     {
         public WundergroundException(String message) {
             super(message);
+        }
+    }
+
+    public class MultipleResultsException extends WundergroundException
+    {
+        private List<String> names;
+        private List<String> codes;
+
+        public MultipleResultsException(List<String> names, List<String> codes)
+        {
+            super("Multiple results found.");
+            this.names = names;
+            this.codes = codes;
+        }
+
+        public List<String> getNames()
+        {
+            return names;
+        }
+
+        public List<String> getCodes()
+        {
+            return codes;
         }
     }
 }

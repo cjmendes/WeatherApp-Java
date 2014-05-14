@@ -84,15 +84,7 @@ public class GUI  extends Program
         String action = ev.getActionCommand();
         if("search".equals(action))
         {
-            try
-            {
-                model = new WundergroundModel(searchField.getText());
-                updateLocation(model);
-            }
-            catch (WundergroundModel.WundergroundException e)
-            {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            search(searchField.getText());
         }
         if("locate".equals(action))
         {
@@ -112,6 +104,36 @@ public class GUI  extends Program
         if("switch".equals(action))
         {
         	//TODO: Replace currentCondition info with lunar info
+        }
+    }
+
+    private void search(String query)
+    {
+        try
+        {
+            model = new WundergroundModel(query);
+            updateLocation(model);
+        }
+        catch (WundergroundModel.WundergroundException e)
+        {
+            if(e instanceof WundergroundModel.MultipleResultsException)
+            {
+                WundergroundModel.MultipleResultsException mre = (WundergroundModel.MultipleResultsException) e;
+
+                JList list = new JList(mre.getNames().toArray());
+                list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                JOptionPane.showMessageDialog(this, list, "Multiple results found", JOptionPane.PLAIN_MESSAGE);
+
+                int i = list.getSelectedIndex();
+                if(i != -1)
+                {
+                    search(mre.getCodes().get(i));
+                }
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
