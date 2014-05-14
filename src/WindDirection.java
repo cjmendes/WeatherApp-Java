@@ -6,16 +6,21 @@ import java.awt.*;
 public class WindDirection extends JPanel
 {
     private double rotation;
-    private final BasicStroke stroke = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);;
+    private final BasicStroke stroke = new BasicStroke(2, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
+
+    public WindDirection()
+    {
+        setOpaque(false);
+    }
 
     public void setAngle(int degrees)
     {
         rotation = Math.toRadians(degrees - 90); // -90 because 0 degrees is North
-        invalidate(); // forces re-draw
+        repaint();
     }
 
     @Override
-    public void paint(Graphics g)
+    public void paintComponent(Graphics g)
     {
         // The object passed into paint() is actually a Graphics2D which has more functionality.
         // Double check this, and cast it
