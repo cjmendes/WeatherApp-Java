@@ -1,10 +1,19 @@
+import acm.graphics.GImage;
 import acm.gui.TablePanel;
+import acm.gui.VPanel;
 import acm.program.Program;
-import org.jdesktop.swingx.prompt.PromptSupport;
 
 import javax.swing.*;
+
+import org.jdesktop.swingx.prompt.PromptSupport;
+
+import com.sun.imageio.plugins.common.ImageUtil;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class GUI  extends Program
@@ -20,6 +29,7 @@ public class GUI  extends Program
     private ForecastPanel forecast;
     private RadarPanel radar;
     private Model model;
+    Font CT3Font;
 
     public GUI()
 	{
@@ -42,6 +52,18 @@ public class GUI  extends Program
 		this.setSize(500,700);
 		this.setSize(WeatherPanel.WIDTH+17, WeatherPanel.HEIGHT*3 + 85);
 		this.setTitle("5Cast: A Better Forecast!");
+		try {
+            //create the font to use. Specify the size
+			CT3Font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Thin.ttf")).deriveFont(24f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //register the font
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Thin.ttf")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch(FontFormatException e){
+            e.printStackTrace();
+        }
 		
 	}
 	
@@ -52,10 +74,7 @@ public class GUI  extends Program
 
         JPanel searchArea = new TablePanel(2,5);
         searchField = new JTextField(25);
-        //TextPrompt ghostText = new TextPrompt("Enter Location", searchField);
-        //ghostText.setForeground(Color.LIGHT_GRAY);
-        //TODO: add ghost text in textfield
-       PromptSupport.setPrompt("Enter zipcode here", searchField);
+        PromptSupport.setPrompt("Enter zipcode here", searchField);
         searchField.setActionCommand("search");
         searchField.addActionListener(this);
         JButton searchButton = new JButton(new ImageIcon("assets/search.png"));
@@ -68,8 +87,7 @@ public class GUI  extends Program
         lunarButton.setActionCommand("switch");
         locationLabel = new JLabel();
         locationLabel.setHorizontalAlignment(JLabel.CENTER);
-        Font locationFont = new Font("Verdana", Font.BOLD, 24);
-        locationLabel.setFont(locationFont);
+        locationLabel.setFont(CT3Font);
 
         searchArea.add(searchField);
         searchArea.add(searchButton);
@@ -98,7 +116,11 @@ public class GUI  extends Program
         
        
     }
-
+	
+	public void paintComponents(Graphics g)
+	{
+		g.drawImage(background,0,0,null);
+	}
 	public static void main(String[] args)
 	{
 		new GUI();
@@ -129,7 +151,6 @@ public class GUI  extends Program
         if("switch".equals(action))
         {
         	changeLunar();
-        	//TODO: Replace currentCondition info with lunar info
         }
     }
 
@@ -190,7 +211,6 @@ public class GUI  extends Program
     private void updateLocation(Model m)
     {
         locationLabel.setText(m.getLocation());
-
 
         currentConditions.onLocationChanged(m);
         forecast.onLocationChanged(m);

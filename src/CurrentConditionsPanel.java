@@ -12,13 +12,16 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 	
 	private JLabel currentTemp, highTemp, lowTemp, conditionIcon, conditionText;
 	private JLabel precipPercent, feelsLike, humidity, elevation, windDir, windSpeed;
-	Font CTFont, CT2Font;
+
+	private Font CTFont, CT2Font;
+
 	GCanvas canvas;
 	
 	private Model model;
+
 	public int lunarNum = 0;
 
-    public CurrentConditionsPanel()
+	public CurrentConditionsPanel()
 	{
 		
 		

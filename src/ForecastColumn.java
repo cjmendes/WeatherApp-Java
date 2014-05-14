@@ -16,9 +16,13 @@ public class ForecastColumn extends VPanel {
     private JLabel conditionIcon;
     private JLabel conditionLabel;
     private JLabel windLabel;
+
     private WindDirection windDirection;
-    private Font CT2Font;
+    private Font CT2Font, CT4Font;
+    
+
     private CurrentConditionsPanel curr;
+
 
 	public ForecastColumn(int position) {
         if(position % 2 == 0) {
@@ -31,6 +35,18 @@ public class ForecastColumn extends VPanel {
         try {
             //create the font to use. Specify the size
         	CT2Font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Medium.ttf")).deriveFont(15f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //register the font
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Medium.ttf")));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        catch(FontFormatException e1){
+            e1.printStackTrace();   
+        }
+        try {
+            //create the font to use. Specify the size
+        	CT2Font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Medium.ttf")).deriveFont(13f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             //register the font
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Medium.ttf")));
@@ -54,7 +70,7 @@ public class ForecastColumn extends VPanel {
         lowLabel.setForeground(Color.blue);
         lowLabel.setFont(CT2Font);
         tempArea.add(lowLabel);
-        tempArea.add(new JLabel("  |"));
+        tempArea.add(new JLabel(" | "));
         highLabel = new JLabel();
         highLabel.setForeground(Color.red);
         highLabel.setFont(CT2Font);
