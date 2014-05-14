@@ -1,17 +1,10 @@
-import acm.graphics.GImage;
 import acm.gui.TablePanel;
-import acm.gui.VPanel;
 import acm.program.Program;
-
-import javax.swing.*;
-
 import org.jdesktop.swingx.prompt.PromptSupport;
 
-import com.sun.imageio.plugins.common.ImageUtil;
-
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
 
 @SuppressWarnings("serial")
 public class GUI  extends Program
@@ -54,7 +47,8 @@ public class GUI  extends Program
 	
 	public void init()
 	{
-		VPanel slots = new VPanel(0,0);
+		BackgroundPanel slots = new BackgroundPanel();
+//        slots.setBackground("assets/bg/Background.png");
 
         JPanel searchArea = new TablePanel(2,5);
         searchField = new JTextField(25);
@@ -104,11 +98,7 @@ public class GUI  extends Program
         
        
     }
-	
-	public void paintComponents(Graphics g)
-	{
-		g.drawImage(background,0,0,null);
-	}
+
 	public static void main(String[] args)
 	{
 		new GUI();
@@ -200,6 +190,7 @@ public class GUI  extends Program
     private void updateLocation(Model m)
     {
         locationLabel.setText(m.getLocation());
+
 
         currentConditions.onLocationChanged(m);
         forecast.onLocationChanged(m);

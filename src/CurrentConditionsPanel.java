@@ -1,5 +1,5 @@
 import acm.graphics.GCanvas;
-import acm.graphics.GImage;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -12,19 +12,18 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 	
 	private JLabel currentTemp, highTemp, lowTemp, conditionIcon, conditionText;
 	private JLabel precipPercent, feelsLike, humidity, elevation, windDir, windSpeed;
-<<<<<<< mine
 	Font CTFont, CT2Font;
+	GCanvas canvas;
 	
-	
-=======
 	private Model model;
 	public int lunarNum = 0;
->>>>>>> theirs
-	public CurrentConditionsPanel()
+
+    public CurrentConditionsPanel()
 	{
 		
 		
-        GCanvas canvas = new GCanvas();
+        canvas = new GCanvas();
+        canvas.setOpaque(false);
 		canvas.setPreferredSize(new Dimension(WeatherPanel.WIDTH, WeatherPanel.HEIGHT));
 		this.add(canvas);
 		try {
@@ -55,9 +54,6 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
          //use the font
          canvas.setFont(CTFont);
    
-       	GImage background = new GImage("assets/bg/Background.png");
-		canvas.add(background);
-		
 		currentTemp = new JLabel("Current Temp");
 		currentTemp.setFont(CTFont);
 		currentTemp.setForeground(Color.white);
@@ -147,6 +143,11 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		
 		windDir.setText("Wind Direction: " + newModel.getWindDir());
 		
+
+        // Magic view fixer
+        for(int i = 0; i < canvas.getComponentCount(); i++) {
+            canvas.getComponent(i).setSize(canvas.getComponent(i).getPreferredSize());
+        }
 	}
 	
 	public void changeLunarInfo(Model newModel){
