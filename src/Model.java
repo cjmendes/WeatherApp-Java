@@ -14,8 +14,17 @@ public interface Model {
     double getWindSpeed();
     URL getRadar();
     String getLocation();
-    ForecastModel getForecast();
-    ForecastModel getLunarPhase();
+
+    // Seven Day
+    String getDay(int dayIndex);
+    double getDayHigh(int dayIndex);
+    double getDayLow(int dayIndex);
+    double getHum(int dayIndex);
+    String getIconString(int dayIndex);
+    String getConditions(int dayIndex);
+    double getWindspeed(int dayIndex);
+    int getWindDirection(int dayIndex);
+
 
     void refresh() throws WundergroundModel.WundergroundException;
 }

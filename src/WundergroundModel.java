@@ -20,7 +20,6 @@ public class WundergroundModel implements Model {
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement weatherJson = null;
 	private URL radarURL = null;
-    private ForecastModel forecast, lunar;
 
     private URL weatherURL;
 
@@ -30,16 +29,11 @@ public class WundergroundModel implements Model {
 		try 
 		{
             query = query.replace(' ', '_');
-
-            // Do these guys before we encode to avoid double encoding
-            forecast = new WundergroundForecastModel(query);
-
-            lunar = new WundergroundForecastModel(query);
 			// Encode given URL -- could throw UnsupportedEncodingException
 			query = URLEncoder.encode(query, "utf-8");
 
 			// Construct Weather API URL
-			weatherURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/conditions/forecast/astronomy/q/" + query + ".json");
+			weatherURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/conditions/forecast/astronomy/forecast10day/q/" + query + ".json");
 
 			radarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/animatedradar/q/" + query + ".gif?width="+WeatherPanel.WIDTH+"&height="+WeatherPanel.HEIGHT+"&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
 
@@ -90,9 +84,6 @@ public class WundergroundModel implements Model {
                     throw new MultipleResultsException(locationNames, locationCodes);
                 }
             }
-
-            // Grab forecast data
-            forecast.refresh();
 
             // Close the connection
             is.close();
@@ -218,6 +209,94 @@ public class WundergroundModel implements Model {
 			return windmph;
 		}
 	}
+
+    private JsonObject getForecastObject(int dayIndex)
+    {
+        return weatherJson.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
+                .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject();
+    }
+
+    public String getDay(int dayIndex) {
+        if (weatherJson != null) {
+            String weekDay = getForecastObject(dayIndex).get("date").getAsJsonObject().get("weekday_short").getAsString();
+            String day = getForecastObject(dayIndex).get("date").getAsJsonObject().get("day").getAsString();
+            String month = getForecastObject(dayIndex).get("date").getAsJsonObject().get("month").getAsString();
+
+            return weekDay+" "+day+"/"+month;
+        } else {
+            return null;
+        }
+    }
+    public String getIconString(int dayIndex) {
+        if (weatherJson != null) {
+            return getForecastObject(dayIndex).get("icon").getAsString();
+        }
+        else {
+            return null;
+        }
+    }
+
+    public double getDayHigh(int dayIndex) {
+        if (weatherJson != null) {
+            return getForecastObject(dayIndex).get("high").getAsJsonObject().get("fahrenheit").getAsDouble();
+
+        } else {
+            return Double.NaN;
+        }
+    }
+
+    public double getDayLow(int dayIndex) {
+        if (weatherJson != null) {
+            return getForecastObject(dayIndex).get("low").getAsJsonObject().get("fahrenheit").getAsDouble();
+        } else {
+            return Double.NaN;
+        }
+    }
+
+    public double getHum(int dayIndex) {
+        if (weatherJson != null) {
+            return getForecastObject(dayIndex).get("avehumidity").getAsDouble();
+        } else {
+            Double hum = Double.NaN;
+            return hum;
+        }
+    }
+
+    public String getConditions(int dayIndex)
+    {
+        if(weatherJson != null)
+        {
+            return getForecastObject(dayIndex).get("conditions").getAsString();
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public double getWindspeed(int dayIndex)
+    {
+        if(weatherJson != null)
+        {
+            return getForecastObject(dayIndex).get("avewind").getAsJsonObject().get("mph").getAsDouble();
+        }
+        else
+        {
+            return Double.NaN;
+        }
+    }
+
+    public int getWindDirection(int dayIndex)
+    {
+        if(weatherJson != null)
+        {
+            return getForecastObject(dayIndex).get("avewind").getAsJsonObject().get("degrees").getAsInt();
+        }
+        else
+        {
+            return -1;
+        }
+    }
     
     public int getMoonPhase(int dayIndex)
     {
@@ -248,17 +327,6 @@ public class WundergroundModel implements Model {
         } else {
             return null;
         }
-    }
-
-    @Override
-    public ForecastModel getForecast()
-    {
-        return forecast;
-    }
-    
-    public ForecastModel getLunarPhase()
-    {
-    	return lunar;
     }
 
     @SuppressWarnings("serial")
