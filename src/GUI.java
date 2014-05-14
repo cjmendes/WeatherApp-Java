@@ -19,7 +19,7 @@ public class GUI  extends Program
     public GUI()
 	{
 		this.start();
-		this.setSize(WeatherPanel.WIDTH, WeatherPanel.HEIGHT*3 + 100);
+		this.setSize(WeatherPanel.WIDTH+17, WeatherPanel.HEIGHT*3 + 100);
 		this.setTitle("5Cast: A Better Forecast!");
 	}
 	
@@ -27,17 +27,22 @@ public class GUI  extends Program
 	{
 		VPanel slots = new VPanel(0,0);
 
-        JPanel searchArea = new TablePanel(1,3);
+        JPanel searchArea = new TablePanel(1,4);
         searchField = new JTextField(25);
+        //TODO: add ghost text in textfield
+        //PromptSupport.setPrompt("Enter zipcode here", searchField);
         searchField.setActionCommand("search");
         searchField.addActionListener(this);
         JButton searchButton = new JButton(new ImageIcon("assets/search.png"));
         searchButton.setActionCommand("search");
         JButton refreshButton = new JButton(new ImageIcon("assets/refresh.png"));
         refreshButton.setActionCommand("refresh");
+        JButton lunarButton = new JButton(new ImageIcon("assets/moon.png"));
+        lunarButton.setActionCommand("switch");
         searchArea.add(searchField);
         searchArea.add(searchButton);
         searchArea.add(refreshButton);
+        searchArea.add(lunarButton);
 
         currentConditions = new CurrentConditionsPanel();
         forecast = new ForecastPanel();
@@ -58,7 +63,7 @@ public class GUI  extends Program
 
         // Load initial location
         //TODO: get this from IP
-        try
+        try 
         {
             model = new WundergroundModel("95747");
             updateLocation(model);
@@ -91,6 +96,10 @@ public class GUI  extends Program
         if("refresh".equals(action))
         {
             model.refresh();
+        }
+        if("switch".equals(action))
+        {
+        	//TODO: Replace currentCondition info with lunar info
         }
     }
 
