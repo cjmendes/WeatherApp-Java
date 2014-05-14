@@ -8,6 +8,7 @@ public interface ForecastModel
     String getConditions(int dayIndex);
     double getWindspeed(int dayIndex);
     int getWindDirection(int dayIndex);
+    int getMoonPhase(int dayIndex);
 
     void refresh();
 }
