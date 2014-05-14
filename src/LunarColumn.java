@@ -1,4 +1,3 @@
-import acm.gui.HPanel;
 import acm.gui.VPanel;
 
 import javax.swing.*;
@@ -8,12 +7,8 @@ import java.awt.*;
 public class LunarColumn extends VPanel {
 
     private JLabel dayLabel;
-    private JLabel lowLabel;
-    private JLabel highLabel;
-    private JLabel conditionIcon;
-    private JLabel conditionLabel;
-    private JLabel windLabel;
-    private WindDirection windDirection;
+    private JLabel lunarIcon;
+    private JLabel lunarLabel;
 
 	public LunarColumn(int position) {
         if(position % 2 == 0) {
@@ -29,48 +24,22 @@ public class LunarColumn extends VPanel {
 		add(dayLabel);
 		
 
-        HPanel tempArea = new HPanel();
-        tempArea.setOpaque(false);
-        lowLabel = new JLabel();
-        lowLabel.setHorizontalAlignment(JLabel.RIGHT);
-        lowLabel.setForeground(Color.blue);
-        lowLabel.setFont(smallFont);
-        tempArea.add(lowLabel);
-        tempArea.add(new JLabel("|"));
-        highLabel = new JLabel();
-        highLabel.setForeground(Color.red);
-        highLabel.setFont(smallFont);
-        highLabel.setHorizontalAlignment(JLabel.LEFT);
-        tempArea.add(highLabel);
-        add(tempArea);
+        lunarIcon = new JLabel();
+        lunarIcon.setHorizontalAlignment(JLabel.CENTER);
+        add(lunarIcon);
+        lunarLabel = new JLabel();
+        lunarLabel.setMaximumSize(new Dimension(60, Integer.MAX_VALUE));
+        lunarLabel.setHorizontalAlignment(JLabel.CENTER);
+        lunarLabel.setFont(smallFont);
+        add(lunarLabel);
 
-        conditionIcon = new JLabel();
-        conditionIcon.setHorizontalAlignment(JLabel.CENTER);
-        add(conditionIcon);
-        conditionLabel = new JLabel();
-        conditionLabel.setMaximumSize(new Dimension(60, Integer.MAX_VALUE));
-        conditionLabel.setHorizontalAlignment(JLabel.CENTER);
-        conditionLabel.setFont(smallFont);
-        add(conditionLabel);
-
-        windLabel = new JLabel();
-        windLabel.setHorizontalAlignment(JLabel.CENTER);
-        windLabel.setFont(smallFont);
-        add(windLabel);
-        windDirection = new WindDirection();
-        windDirection.setPreferredSize(new Dimension(30, 30));
-        add(windDirection);
 	}
 	
 	public void update(int position, Model model) {
 		// Update the various components here.
         ForecastModel f = model.getForecast();
         dayLabel.setText(f.getDay(position));
-        lowLabel.setText(""+f.getDayLow(position));
-        highLabel.setText("" + f.getDayHigh(position));
-        conditionIcon.setIcon(IconHelper.getIcon(f.getIconString(position)));
-        conditionLabel.setText(f.getConditions(position));
-        windLabel.setText(f.getWindspeed(position)+" mph");
-        windDirection.setAngle(f.getWindDirection(position));
+        lunarIcon.setIcon(IconHelper.getIcon(f.getIconString(position)));
+        lunarLabel.setText(f.getConditions(position));
 	}
 }
