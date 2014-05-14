@@ -19,8 +19,6 @@ public class WundergroundModel implements Model {
 	 */
 	private final String ACCESS_TOKEN = "4a505977e3e86a2c";
 	private JsonElement weatherJson = null;
-	private JsonElement forecastJson = null;
-	private JsonElement lunarJson = null;
 	private URL radarURL = null;
     private ForecastModel forecast, lunar;
 
@@ -41,15 +39,9 @@ public class WundergroundModel implements Model {
 			query = URLEncoder.encode(query, "utf-8");
 
 			// Construct Weather API URL
-			weatherURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/conditions/q/" + query + ".json");
-
-		    // forecast URL to get the day high's and low's
-			forecastURL = new URL("http://api.wunderground.com/api/"+ ACCESS_TOKEN + "/forecast/q/"+ query +".json");
+			weatherURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/conditions/forecast/astronomy/q/" + query + ".json");
 
 			radarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/animatedradar/q/" + query + ".gif?width="+WeatherPanel.WIDTH+"&height="+WeatherPanel.HEIGHT+"&newmaps=1&timelabel=1&timelabel.y=10&num=15&delay=25");
-
-			//Construct Astronomy API URL
-			lunarURL = new URL("http://api.wunderground.com/api/" + ACCESS_TOKEN + "/astronomy/q/" + query + ".json");
 
             refresh();
         } catch (java.io.UnsupportedEncodingException uee) {
@@ -66,16 +58,9 @@ public class WundergroundModel implements Model {
             InputStream is = weatherURL.openStream(); // throws an IOException
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-            InputStream is2 = forecastURL.openStream();
-            BufferedReader br2 = new BufferedReader(new InputStreamReader(is2));
-            
-            InputStream is3 = lunarURL.openStream();
-            BufferedReader br3 = new BufferedReader(new InputStreamReader(is3));
 
             // Read the result into a JSON Element
             weatherJson = new JsonParser().parse(br);
-            forecastJson = new JsonParser().parse(br2);
-            lunarJson = new JsonParser().parse(br3);
 
             // Check for ambiguous results
             if(weatherJson != null) {
@@ -112,10 +97,6 @@ public class WundergroundModel implements Model {
             // Close the connection
             is.close();
             br.close();
-            is2.close();
-            br2.close();
-            is3.close();
-            br3.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -144,7 +125,7 @@ public class WundergroundModel implements Model {
     
     public double getDHigh(int dayIndex) {
 		if (weatherJson != null) {
-			double dayhigh = forecastJson.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
+			double dayhigh = weatherJson.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
                     .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("high")
                     .getAsJsonObject().get("fahrenheit").getAsDouble();
 			return dayhigh;
@@ -155,7 +136,7 @@ public class WundergroundModel implements Model {
 	}
     public double getDLow(int dayIndex) {
 		if (weatherJson != null) {
-			double daylow = forecastJson.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
+			double daylow = weatherJson.getAsJsonObject().get("forecast").getAsJsonObject().get("simpleforecast")
                     .getAsJsonObject().get("forecastday").getAsJsonArray().get(dayIndex).getAsJsonObject().get("low")
                     .getAsJsonObject().get("fahrenheit").getAsDouble();
 			return daylow;
@@ -240,9 +221,9 @@ public class WundergroundModel implements Model {
     
     public int getMoonPhase(int dayIndex)
     {
-        if(lunarJson != null)
+        if(weatherJson != null)
         {
-        	return lunarJson.getAsJsonObject().get("moon_phase")
+        	return weatherJson.getAsJsonObject().get("moon_phase")
             .getAsJsonObject().get("percentIlluminated").getAsInt();
         }
         else
