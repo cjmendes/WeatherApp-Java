@@ -31,6 +31,8 @@ public class WundergroundModel implements Model {
 
 		try 
 		{
+            query = query.replace(' ', '_');
+
             // Do these guys before we encode to avoid double encoding
             forecast = new WundergroundForecastModel(query);
 
