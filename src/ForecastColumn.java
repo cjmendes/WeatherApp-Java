@@ -4,6 +4,8 @@ import acm.gui.VPanel;
 import javax.swing.*;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 @SuppressWarnings("serial")
 public class ForecastColumn extends VPanel {
@@ -15,8 +17,12 @@ public class ForecastColumn extends VPanel {
     private JLabel conditionLabel;
     private JLabel windLabel;
     private WindDirection windDirection;
+<<<<<<< mine
+    private Font CT2Font;
+=======
     private CurrentConditionsPanel curr;
 
+>>>>>>> theirs
 	public ForecastColumn(int position) {
         if(position % 2 == 0) {
             setBackground(Color.WHITE);
@@ -24,10 +30,23 @@ public class ForecastColumn extends VPanel {
             setBackground(Color.LIGHT_GRAY);
         }
 
-        Font smallFont = new Font("TAHOMA", Font.BOLD, 11);
+       
+        try {
+            //create the font to use. Specify the size
+        	CT2Font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Medium.ttf")).deriveFont(15f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //register the font
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Medium.ttf")));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        catch(FontFormatException e1){
+            e1.printStackTrace();   
+        }
+        
 		dayLabel = new JLabel();
         dayLabel.setHorizontalAlignment(JLabel.CENTER);
-        dayLabel.setFont(smallFont);
+        dayLabel.setFont(CT2Font);
 		add(dayLabel);
 		
 
@@ -36,12 +55,12 @@ public class ForecastColumn extends VPanel {
         lowLabel = new JLabel();
         lowLabel.setHorizontalAlignment(JLabel.RIGHT);
         lowLabel.setForeground(Color.blue);
-        lowLabel.setFont(smallFont);
+        lowLabel.setFont(CT2Font);
         tempArea.add(lowLabel);
         tempArea.add(new JLabel("  |"));
         highLabel = new JLabel();
         highLabel.setForeground(Color.red);
-        highLabel.setFont(smallFont);
+        highLabel.setFont(CT2Font);
         highLabel.setHorizontalAlignment(JLabel.LEFT);
         tempArea.add(highLabel);
         add(tempArea);
@@ -59,7 +78,7 @@ public class ForecastColumn extends VPanel {
 
         windLabel = new JLabel();
         windLabel.setHorizontalAlignment(JLabel.CENTER);
-        windLabel.setFont(smallFont);
+        windLabel.setFont(CT2Font);
         add(windLabel);
         windDirection = new WindDirection();
         windDirection.setPreferredSize(new Dimension(30, 30));

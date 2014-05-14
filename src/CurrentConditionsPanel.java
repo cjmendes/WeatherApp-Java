@@ -1,9 +1,9 @@
 import acm.graphics.GCanvas;
 import acm.graphics.GImage;
-
 import javax.swing.*;
-
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 
 @SuppressWarnings("serial")
@@ -12,8 +12,14 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 	
 	private JLabel currentTemp, highTemp, lowTemp, conditionIcon, conditionText;
 	private JLabel precipPercent, feelsLike, humidity, elevation, windDir, windSpeed;
+<<<<<<< mine
+	Font CTFont, CT2Font;
+	
+	
+=======
 	private Model model;
 	public int lunarNum = 0;
+>>>>>>> theirs
 	public CurrentConditionsPanel()
 	{
 		
@@ -21,68 +27,70 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
         GCanvas canvas = new GCanvas();
 		canvas.setPreferredSize(new Dimension(WeatherPanel.WIDTH, WeatherPanel.HEIGHT));
 		this.add(canvas);
-		
-/*
-		
 		try {
             //create the font to use. Specify the size
-     
-			
-            Font CTFont = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Quicksand_Bold_Oblique.otf")).deriveFont(70f);
+			CTFont = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Quicksand_Light.otf")).deriveFont(70f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             //register the font
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Quicksand_Bold_Oblique.otf")));
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Quicksand_Light.otf")));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        catch(FontFormatException e)
-        {
+        catch(FontFormatException e){
             e.printStackTrace();
         }
+        try {
+            //create the font to use. Specify the size
+        	CT2Font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Medium.ttf")).deriveFont(15f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //register the font
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Medium.ttf")));
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        catch(FontFormatException e1){
+            e1.printStackTrace();   
+        }
+        
          //use the font
          canvas.setFont(CTFont);
-       	
-		*/
-
-		Font conditionFont = new Font("VERDANA", Font.LAYOUT_LEFT_TO_RIGHT, 70);
-		Font smallFont = new Font("TAHOMA", Font.CENTER_BASELINE, 11);
-
-		GImage background = new GImage("assets/bg/Background.png");
+   
+       	GImage background = new GImage("assets/bg/Background.png");
 		canvas.add(background);
 		
 		currentTemp = new JLabel("Current Temp");
-		currentTemp.setFont(conditionFont);
+		currentTemp.setFont(CTFont);
 		currentTemp.setForeground(Color.white);
 		canvas.setBackground(Color.darkGray);
 		canvas.add(currentTemp, 30, 10);
 		
 		precipPercent = new JLabel("Precipitation: ###.# in");
-		precipPercent.setFont(smallFont);
+		precipPercent.setFont(CT2Font);
 		precipPercent.setForeground(Color.white);
 		canvas.add(precipPercent, 40, 110);
 		
 		feelsLike = new JLabel("Feels Like: ###.#\u00B0F");
-		feelsLike.setFont(smallFont);
+		feelsLike.setFont(CT2Font);
 		feelsLike.setForeground(Color.white);
 		canvas.add(feelsLike, 45, 130);
 		
 		humidity = new JLabel("Humidity: ###%");
-		humidity.setFont(smallFont);
+		humidity.setFont(CT2Font);
 		humidity.setForeground(Color.white);
 		canvas.add(humidity, 50, 150);
 		
 		elevation = new JLabel("Elevation: #######ft");
-		elevation.setFont(smallFont);
+		elevation.setFont(CT2Font);
 		elevation.setForeground(Color.white);
 		canvas.add(elevation, 47, 170);
 		
 		highTemp = new JLabel( "High: ###.#\u00B0F");
-		highTemp.setFont(smallFont);
+		highTemp.setFont(CT2Font);
 		highTemp.setForeground(Color.white);
 		canvas.add(highTemp, 280, 10);
 		
 		lowTemp = new JLabel("Low: ###.#\u00B0F");
-		lowTemp.setFont(smallFont);
+		lowTemp.setFont(CT2Font);
 		lowTemp.setForeground(Color.white);
 		canvas.add(lowTemp, 380, 10);
 		
@@ -92,17 +100,17 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		canvas.add(conditionIcon, 320, 40);
 		
 		conditionText = new JLabel( "Something went very wrong here!" );
-		conditionText.setFont(smallFont);
+		conditionText.setFont(CT2Font);
 		conditionText.setForeground(Color.white);
 		canvas.add(conditionText, 350, 120);
 		
 		windDir = new JLabel("Wind Direction: ToTheUniverseAndBeyond");
-		windDir.setFont(smallFont);
+		windDir.setFont(CT2Font);
 		windDir.setForeground(Color.white);
 		canvas.add(windDir, 300, 140);
 		
 		windSpeed = new JLabel("Wind Speed: ###.#mph");
-		windSpeed.setFont(smallFont);
+		windSpeed.setFont(CT2Font);
 		windSpeed.setForeground(Color.white);
 		canvas.add(windSpeed, 300, 165);
 		

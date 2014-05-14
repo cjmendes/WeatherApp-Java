@@ -5,6 +5,8 @@ import acm.program.Program;
 
 import javax.swing.*;
 
+import org.jdesktop.swingx.prompt.PromptSupport;
+
 import com.sun.imageio.plugins.common.ImageUtil;
 
 import java.awt.*;
@@ -18,6 +20,7 @@ public class GUI  extends Program
 	private Image background;
 
     private JTextField searchField;
+    
     private JLabel locationLabel;
 
     private CurrentConditionsPanel currentConditions;
@@ -55,8 +58,10 @@ public class GUI  extends Program
 
         JPanel searchArea = new TablePanel(2,5);
         searchField = new JTextField(25);
+        //TextPrompt ghostText = new TextPrompt("Enter Location", searchField);
+        //ghostText.setForeground(Color.LIGHT_GRAY);
         //TODO: add ghost text in textfield
-//        PromptSupport.setPrompt("Enter zipcode here", searchField);
+       PromptSupport.setPrompt("Enter zipcode here", searchField);
         searchField.setActionCommand("search");
         searchField.addActionListener(this);
         JButton searchButton = new JButton(new ImageIcon("assets/search.png"));
@@ -173,7 +178,7 @@ public class GUI  extends Program
         try
         {
             model = new WundergroundModel("autoip");
-            searchField.setText(model.getLocation());
+            //searchField.setText(model.getLocation());
             updateLocation(model);
         } catch (WundergroundModel.WundergroundException e)
         {
