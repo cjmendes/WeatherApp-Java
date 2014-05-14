@@ -18,6 +18,28 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
         GCanvas canvas = new GCanvas();
 		canvas.setPreferredSize(new Dimension(WeatherPanel.WIDTH, WeatherPanel.HEIGHT));
 		this.add(canvas);
+		
+/*
+		
+		try {
+            //create the font to use. Specify the size
+     
+			
+            Font CTFont = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Quicksand_Bold_Oblique.otf")).deriveFont(70f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //register the font
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Quicksand_Bold_Oblique.otf")));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        catch(FontFormatException e)
+        {
+            e.printStackTrace();
+        }
+         //use the font
+         canvas.setFont(CTFont);
+       	
+		*/
 
 		Font conditionFont = new Font("VERDANA", Font.LAYOUT_LEFT_TO_RIGHT, 70);
 		Font smallFont = new Font("TAHOMA", Font.CENTER_BASELINE, 11);
