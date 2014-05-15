@@ -1,7 +1,9 @@
 import acm.program.Program;
+
 import org.jdesktop.swingx.prompt.PromptSupport;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -136,7 +138,8 @@ public class GUI  extends Program
 
     public void actionPerformed(ActionEvent ev)
     {
-        String action = ev.getActionCommand();
+    	int count = 1;
+    	String action = ev.getActionCommand();
         if("search".equals(action))
         {
             search(searchField.getText());
@@ -157,8 +160,19 @@ public class GUI  extends Program
             }
         }
         if("switch".equals(action))
-        {
+        {        	
         	changeLunar();
+            //TODO: make buttons switch upon click, maybe use JToggleButton for that?
+        	/*count++;
+			if (count % 2 == 0)
+            {
+            	lunarButton = new JButton(new ImageIcon("assets/sun.png"));
+            }
+            else
+            {
+            	lunarButton = new JButton(new ImageIcon("assets/moon.png"));
+            }*/
+        	
         }
     }
 
