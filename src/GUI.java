@@ -46,7 +46,7 @@ public class GUI  extends Program
 		this.setTitle("5Cast: A Better Forecast!");
 		try {
             //create the font to use. Specify the size
-			CT3Font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Thin.ttf")).deriveFont(24f);
+			CT3Font = Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Thin.ttf")).deriveFont(30f);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             //register the font
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("assets/Fonts/Roboto-Thin.ttf")));
@@ -103,6 +103,7 @@ public class GUI  extends Program
 
         locationLabel = new JLabel();
         locationLabel.setHorizontalAlignment(JLabel.CENTER);
+        locationLabel.setForeground(Color.WHITE);
         locationLabel.setFont(CT3Font);
         c.gridwidth=5;
         c.gridy=1;

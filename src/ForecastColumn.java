@@ -14,7 +14,6 @@ public class ForecastColumn extends VPanel {
     private JLabel lowLabel;
     private JLabel highLabel;
     private JLabel conditionIcon;
-    private JLabel conditionLabel;
     private JLabel windLabel;
 
     private WindDirection windDirection;
@@ -68,12 +67,12 @@ public class ForecastColumn extends VPanel {
         lowLabel = new JLabel();
         lowLabel.setHorizontalAlignment(JLabel.RIGHT);
         lowLabel.setForeground(Color.blue);
-        lowLabel.setFont(CT2Font);
+        lowLabel.setFont(CT4Font);
         tempArea.add(lowLabel);
         tempArea.add(new JLabel(" | "));
         highLabel = new JLabel();
         highLabel.setForeground(Color.red);
-        highLabel.setFont(CT2Font);
+        highLabel.setFont(CT4Font);
         highLabel.setHorizontalAlignment(JLabel.LEFT);
         tempArea.add(highLabel);
         add(tempArea);

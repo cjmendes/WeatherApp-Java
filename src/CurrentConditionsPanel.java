@@ -126,7 +126,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		int xInt = (int)x;
 		currentTemp.setText( xInt + "\u00B0F");
 		
-		//conditionIcon.setIcon(IconHelper.getIcon(newModel.getIconText()+ "1"));
+		conditionIcon.setIcon(IconHelper.getIcon(newModel.getIconText()+ "1", 10, 10));
 		
 		changeLunarInfo(newModel);
 		
