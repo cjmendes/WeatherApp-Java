@@ -12,6 +12,7 @@ public class ForecastPanel extends JPanel implements WeatherPanel {
 	private ForecastColumn[] days = new ForecastColumn[NUM_COLS];
 
 	public ForecastPanel() {
+        setOpaque(false);
         BoxLayout layout = new BoxLayout(this, BoxLayout.X_AXIS);
 //        layout.
         this.setLayout(layout);

@@ -26,9 +26,9 @@ public class ForecastColumn extends VPanel {
 
 	public ForecastColumn(int position) {
         if(position % 2 == 0) {
-            setBackground(new Color(255, 255, 255, 150));
+            setBackground(new Color(255, 255, 255, 125));
         } else {
-            setBackground(new Color(200, 200, 200, 150));
+            setBackground(new Color(200, 200, 200, 125));
         }
 
        
