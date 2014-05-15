@@ -28,13 +28,4 @@ public class BackgroundPanel extends JPanel
         graphics.drawImage(bg, 0, 0, getWidth(), getHeight(), null);
         super.paint(graphics);
     }
-
-    @Override
-    public Component add(Component component)
-    {
-        if(component instanceof JComponent) {
-            ((JComponent)component).setOpaque(false);
-        }
-        return super.add(component);
-    }
 }

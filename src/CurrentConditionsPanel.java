@@ -23,7 +23,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 
 	public CurrentConditionsPanel()
 	{
-		
+		setOpaque(false);
 		
         canvas = new GCanvas();
         canvas.setOpaque(false);

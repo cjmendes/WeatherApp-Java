@@ -1,17 +1,9 @@
-import acm.graphics.GImage;
-import acm.gui.TablePanel;
-import acm.gui.VPanel;
 import acm.program.Program;
-
-import javax.swing.*;
-
 import org.jdesktop.swingx.prompt.PromptSupport;
 
-import com.sun.imageio.plugins.common.ImageUtil;
-
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -72,29 +64,50 @@ public class GUI  extends Program
 		BackgroundPanel slots = new BackgroundPanel();
 //        slots.setBackground("assets/bg/Background.png");
 
-        JPanel searchArea = new TablePanel(2,5);
+        JPanel searchArea = new JPanel();
+        searchArea.setLayout(new GridBagLayout());
+        searchArea.setOpaque(false);
+        GridBagConstraints c = new GridBagConstraints();
         searchField = new JTextField(25);
-        PromptSupport.setPrompt("Enter zipcode here", searchField);
+        searchField.setOpaque(true);
+        PromptSupport.setPrompt("Enter location here", searchField);
         searchField.setActionCommand("search");
         searchField.addActionListener(this);
+        c.gridwidth=1;
+        c.gridy = 0;
+        searchArea.add(searchField, c);
+
         JButton searchButton = new JButton(new ImageIcon("assets/search.png"));
         searchButton.setActionCommand("search");
+        c.gridwidth=1;
+        c.gridy = 0;
+        searchArea.add(searchButton, c);
+
         JButton locationButton = new JButton(new ImageIcon("assets/location.png"));
         locationButton.setActionCommand("locate");
+        c.gridwidth=1;
+        c.gridy = 0;
+        searchArea.add(locationButton, c);
+
         JButton refreshButton = new JButton(new ImageIcon("assets/refresh.png"));
         refreshButton.setActionCommand("refresh");
+        c.gridwidth=1;
+        c.gridy = 0;
+        searchArea.add(refreshButton, c);
+
         JButton lunarButton = new JButton(new ImageIcon("assets/moon.png"));
         lunarButton.setActionCommand("switch");
+        c.gridwidth=1;
+        c.gridy = 0;
+        searchArea.add(lunarButton, c);
+
         locationLabel = new JLabel();
         locationLabel.setHorizontalAlignment(JLabel.CENTER);
         locationLabel.setFont(CT3Font);
+        c.gridwidth=5;
+        c.gridy=1;
+        searchArea.add(locationLabel, c);
 
-        searchArea.add(searchField);
-        searchArea.add(searchButton);
-        searchArea.add(locationButton);
-        searchArea.add(refreshButton);
-        searchArea.add(lunarButton);
-        searchArea.add(locationLabel, "gridwidth=5");
 
         currentConditions = new CurrentConditionsPanel();
         forecast = new ForecastPanel();
@@ -113,14 +126,8 @@ public class GUI  extends Program
         addActionListeners();
 
         useLocation();
-        
-       
     }
-	
-	public void paintComponents(Graphics g)
-	{
-		g.drawImage(background,0,0,null);
-	}
+
 	public static void main(String[] args)
 	{
 		new GUI();
