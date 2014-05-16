@@ -1,6 +1,7 @@
 import acm.graphics.GCanvas;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -54,64 +55,60 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
             e1.printStackTrace();   
         }
         
-         //use the font
-         canvas.setFont(CTFont);
-   
 		currentTemp = new JLabel("Current Temp");
 		currentTemp.setFont(CTFont);
 		currentTemp.setForeground(Color.white);
-		canvas.setBackground(Color.darkGray);
 		canvas.add(currentTemp, 30, 10);
 		
 		precipPercent = new JLabel("Precipitation: ###.# in");
 		precipPercent.setFont(CT2Font);
 		precipPercent.setForeground(Color.white);
-		canvas.add(precipPercent, 40, 110);
+		canvas.add(precipPercent, 40, 90);
 		
 		feelsLike = new JLabel("Feels Like: ###.#\u00B0F");
 		feelsLike.setFont(CT2Font);
 		feelsLike.setForeground(Color.white);
-		canvas.add(feelsLike, 45, 130);
+		canvas.add(feelsLike, 45, 110);
 		
 		humidity = new JLabel("Humidity: ###%");
 		humidity.setFont(CT2Font);
 		humidity.setForeground(Color.white);
-		canvas.add(humidity, 50, 150);
+		canvas.add(humidity, 50, 130);
 		
 		elevation = new JLabel("Elevation: #######ft");
 		elevation.setFont(CT2Font);
 		elevation.setForeground(Color.white);
-		canvas.add(elevation, 47, 170);
+		canvas.add(elevation, 47, 150);
 		
 		highTemp = new JLabel( "High: ###.#\u00B0F");
 		highTemp.setFont(CT2Font);
 		highTemp.setForeground(Color.white);
-		canvas.add(highTemp, 280, 10);
+		canvas.add(highTemp, 290, 10);
 		
 		lowTemp = new JLabel("Low: ###.#\u00B0F");
 		lowTemp.setFont(CT2Font);
 		lowTemp.setForeground(Color.white);
-		canvas.add(lowTemp, 380, 10);
+		canvas.add(lowTemp, 390, 10);
 		
 		conditionIcon = new JLabel("");
 		conditionIcon.setForeground(Color.white);
 		conditionIcon.setPreferredSize(new Dimension(109, 75));
-		canvas.add(conditionIcon, 320, 40);
+		canvas.add(conditionIcon, 350, 33);
 		
 		conditionText = new JLabel( "Something went very wrong here!" );
 		conditionText.setFont(CT2Font);
 		conditionText.setForeground(Color.white);
-		canvas.add(conditionText, 350, 120);
+		canvas.add(conditionText, 370, 110);
 		
 		windDir = new JLabel("Wind Direction: ToTheUniverseAndBeyond");
 		windDir.setFont(CT2Font);
 		windDir.setForeground(Color.white);
-		canvas.add(windDir, 300, 140);
+		canvas.add(windDir, 310, 130);
 		
 		windSpeed = new JLabel("Wind Speed: ###.#mph");
 		windSpeed.setFont(CT2Font);
 		windSpeed.setForeground(Color.white);
-		canvas.add(windSpeed, 300, 165);
+		canvas.add(windSpeed, 310, 150);
 		
 	}
 
