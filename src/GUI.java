@@ -23,7 +23,7 @@ public class GUI  extends Program
     private ForecastPanel forecast;
     private RadarPanel radar;
     private Model model;
-    Font CT3Font;
+    private Font CT3Font;
 
     public GUI()
 	{
@@ -44,7 +44,7 @@ public class GUI  extends Program
 		}
         
 		this.setSize(500,700);
-		this.setSize(WeatherPanel.WIDTH+17, WeatherPanel.HEIGHT*3 + 85);
+		this.setSize(WeatherPanel.WIDTH+17 + 20, WeatherPanel.HEIGHT*3 + 85);
 		this.setTitle("5Cast: A Better Forecast!");
 		try {
             //create the font to use. Specify the size
@@ -79,25 +79,25 @@ public class GUI  extends Program
         c.gridy = 0;
         searchArea.add(searchField, c);
 
-        JButton searchButton = new JButton(new ImageIcon("assets/search.png"));
+        JButton searchButton = new JButton(new ImageIcon("assets/Buttons/search.png"));
         searchButton.setActionCommand("search");
         c.gridwidth=1;
         c.gridy = 0;
         searchArea.add(searchButton, c);
 
-        JButton locationButton = new JButton(new ImageIcon("assets/location.png"));
+        JButton locationButton = new JButton(new ImageIcon("assets/Buttons/location1.png"));
         locationButton.setActionCommand("locate");
         c.gridwidth=1;
         c.gridy = 0;
         searchArea.add(locationButton, c);
 
-        JButton refreshButton = new JButton(new ImageIcon("assets/refresh.png"));
+        JButton refreshButton = new JButton(new ImageIcon("assets/Buttons/refresh.png"));
         refreshButton.setActionCommand("refresh");
         c.gridwidth=1;
         c.gridy = 0;
         searchArea.add(refreshButton, c);
 
-        JButton lunarButton = new JButton(new ImageIcon("assets/moon.png"));
+        JButton lunarButton = new JButton(new ImageIcon("assets/Buttons/moon.png"));
         lunarButton.setActionCommand("switch");
         c.gridwidth=1;
         c.gridy = 0;

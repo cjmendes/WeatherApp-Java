@@ -8,14 +8,15 @@ public class BackgroundPanel extends JPanel
 {
 
     Image bg;
-
+    
     public BackgroundPanel()
     {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setOpaque(false);
+        
         try
         {
-            bg = ImageIO.read(new File("assets/bg/Background.png"));
+            bg = ImageIO.read(new File("assets/bg/afternoon1.jpg"));
         } catch (IOException e)
         {
             e.printStackTrace();

@@ -31,6 +31,7 @@ public class WindDirection extends JPanel
         int height = getHeight();
 
         g2d.setStroke(stroke);
+        g2d.setColor(Color.WHITE);
 
         // Turn on anti-aliasing to make it less jagged
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -47,8 +48,8 @@ public class WindDirection extends JPanel
         // Rotate our perspective of the canvas
         g2d.rotate(rotation);
         // Draw the arm of the arrow
-        g2d.drawLine(0, 0, circleSize/2, 0);
+        g2d.drawLine(0, 0, circleSize/ 2, 0);
         // Draw the head of the arrow as a polygon. First array is list of x coords, second is list of y coords
-        g2d.fillPolygon(new int[]{circleSize / 4, circleSize / 2, circleSize / 4}, new int[]{-circleSize / 6, 0, circleSize / 6}, 3);
+        //g2d.fillPolygon(new int[]{circleSize / 4, circleSize / 2, circleSize / 4}, new int[]{-circleSize / 6, 0, circleSize / 6}, 3);
     }
 }
