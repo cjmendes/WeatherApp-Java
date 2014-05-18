@@ -18,16 +18,30 @@ public class GUI  extends Program
     private JTextField searchField;
     
     private JLabel locationLabel;
+    
+    /*lunarButton needs to be declared as instance field so both init() 
+    and actionPerformed can see it, for the switching images.*/
+    private JButton lunarButton;
+    
+    /*Called here so the actionPerformed doesn't load the images 
+    everytime button is clicked.*/
+    private ImageIcon sun = new ImageIcon("assets/sun.png");
+	private ImageIcon moon = new ImageIcon("assets/Buttons/moon.png");
+	
+	/*count to keep track of lunarButton clicks to switch between images*/
+	int count = 1;
 
     private CurrentConditionsPanel currentConditions;
     private ForecastPanel forecast;
     private RadarPanel radar;
     private Model model;
     private Font CT3Font;
+    
 
     public GUI()
 	{
-		this.start();
+    	this.start();
+ 
 		
 		try
 		{
@@ -97,7 +111,7 @@ public class GUI  extends Program
         c.gridy = 0;
         searchArea.add(refreshButton, c);
 
-        JButton lunarButton = new JButton(new ImageIcon("assets/Buttons/moon.png"));
+        lunarButton = new JButton(new ImageIcon("assets/Buttons/moon.png"));
         lunarButton.setActionCommand("switch");
         c.gridwidth=1;
         c.gridy = 0;
@@ -138,7 +152,6 @@ public class GUI  extends Program
 
     public void actionPerformed(ActionEvent ev)
     {
-    	int count = 1;
     	String action = ev.getActionCommand();
         if("search".equals(action))
         {
@@ -162,16 +175,15 @@ public class GUI  extends Program
         if("switch".equals(action))
         {        	
         	changeLunar();
-            //TODO: make buttons switch upon click, maybe use JToggleButton for that?
-        	/*count++;
+        	count++;
 			if (count % 2 == 0)
             {
-            	lunarButton = new JButton(new ImageIcon("assets/sun.png"));
+				lunarButton.setIcon(sun);            	
             }
             else
             {
-            	lunarButton = new JButton(new ImageIcon("assets/moon.png"));
-            }*/
+            	lunarButton.setIcon(moon);
+            }
         	
         }
     }
