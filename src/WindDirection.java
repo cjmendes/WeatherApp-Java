@@ -38,8 +38,8 @@ public class WindDirection extends JPanel
 
         // Figure out how big the circle can be
         int circleSize = (width < height) ? width : height;// shorthand for: if(width < height) { circleSize = width } else { circlesize = height }.
-        // Subtract width of stroke so it doesnt get clipped
-        circleSize -= stroke.getLineWidth()/2;
+        // Subtract some padding so it doesnt get clipped
+        circleSize -= stroke.getLineWidth()+2;
 
         // Move to the center
         g2d.translate(width / 2, height / 2);
