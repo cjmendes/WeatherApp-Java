@@ -244,6 +244,9 @@ public class GUI  extends Program
 
     private void updateLocation(Model m)
     {
+        invalidate();
+        repaint();
+
         locationLabel.setText(m.getLocation());
 
         currentConditions.onLocationChanged(m);
