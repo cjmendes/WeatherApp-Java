@@ -25,7 +25,7 @@ public class GUI  extends Program
     
     /*Called here so the actionPerformed doesn't load the images 
     everytime button is clicked.*/
-    private ImageIcon sun = new ImageIcon("assets/sun.png");
+    private ImageIcon sun = new ImageIcon("assets/sun.gif");
 	private ImageIcon moon = new ImageIcon("assets/Buttons/moon.png");
 	
 	/*count to keep track of lunarButton clicks to switch between images*/
