@@ -68,14 +68,14 @@ public class ForecastColumn extends VPanel {
         tempArea.setOpaque(false);
         lowLabel = new JLabel();
         lowLabel.setHorizontalAlignment(JLabel.RIGHT);
-        lowLabel.setForeground(new Color(210, 210, 255));
+        lowLabel.setForeground(new Color(175, 175, 255));
         lowLabel.setFont(CT4Font);
         tempArea.add(lowLabel);
         divLabel = new JLabel("  | ");
         divLabel.setForeground(Color.WHITE);
         tempArea.add(divLabel);
         highLabel = new JLabel();
-        highLabel.setForeground(new Color(255, 210, 210));
+        highLabel.setForeground(new Color(255, 150, 150));
         highLabel.setFont(CT4Font);
         highLabel.setHorizontalAlignment(JLabel.LEFT);
         tempArea.add(highLabel);
