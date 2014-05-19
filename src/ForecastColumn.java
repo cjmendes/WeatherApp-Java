@@ -21,7 +21,8 @@ public class ForecastColumn extends VPanel {
     private Font CT2Font, CT4Font;
     
 
-    private CurrentConditionsPanel curr;
+    @SuppressWarnings("unused")
+	private CurrentConditionsPanel curr;
 
 
 	public ForecastColumn(int position) {

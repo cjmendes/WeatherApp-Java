@@ -14,7 +14,7 @@ public interface Model {
     double getWindSpeed();
     URL getRadar();
     String getLocation();
-    int getMoonPhase(int dayIndex);
+    String getMoonPhase(int dayIndex);
 
     // Seven Day
     String getDay(int dayIndex);

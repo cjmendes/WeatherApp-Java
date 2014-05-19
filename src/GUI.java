@@ -188,7 +188,8 @@ public class GUI  extends Program
         }
     }
 
-    private void search(String query)
+    @SuppressWarnings("unchecked")
+	private void search(String query)
     {
         try
         {
@@ -201,7 +202,8 @@ public class GUI  extends Program
             {
                 WundergroundModel.MultipleResultsException mre = (WundergroundModel.MultipleResultsException) e;
 
-                JList list = new JList(mre.getNames().toArray());
+                @SuppressWarnings("rawtypes")
+				JList list = new JList(mre.getNames().toArray());
                 list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 JOptionPane.showMessageDialog(this, list, "Multiple results found", JOptionPane.PLAIN_MESSAGE);
 
@@ -239,7 +241,7 @@ public class GUI  extends Program
         	currentConditions.lunarNum--;
         
         currentConditions.changeLunarInfo(model);
-        //forecast.onLocationChanged(model);
+        //currentConditions.onLocationChanged(model);
     }
 
     private void updateLocation(Model m)

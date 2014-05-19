@@ -18,7 +18,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 
 	GCanvas canvas;
 	
-	private Model model;
+	//private Model model;
 
 	public int lunarNum = 0;
 
@@ -157,7 +157,7 @@ public class CurrentConditionsPanel extends JPanel implements WeatherPanel
 		}
 		else
 		{
-			conditionIcon.setIcon(IconHelper.getIcon("" + newModel.getMoonPhase(0)));
+			conditionIcon.setIcon(IconHelper.getIcon(newModel.getMoonPhase(0)));
 		}
 	}
 }

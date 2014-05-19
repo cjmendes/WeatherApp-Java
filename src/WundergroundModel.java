@@ -300,18 +300,18 @@ public class WundergroundModel implements Model {
         }
     }
     
-    public int getMoonPhase(int dayIndex)
+    public String getMoonPhase(int dayIndex)
     {
         if(weatherJson != null)
         {
-        	int moonphase = weatherJson.getAsJsonObject().get("moon_phase")
-            .getAsJsonObject().get("percentIlluminated").getAsInt();
-        	moonphase = moonphase - (dayIndex * 7); 
+        	String moonphase = weatherJson.getAsJsonObject().get("moon_phase")
+            .getAsJsonObject().get("phaseofMoon").getAsString();
+        	//moonphase = moonphase - (dayIndex * 7); 
         	return moonphase;
         }
         else
         {
-            return -1;
+            return null;
         }
     }
     
@@ -341,7 +341,8 @@ public class WundergroundModel implements Model {
         }
     }
 
-    public class MultipleResultsException extends WundergroundException
+    @SuppressWarnings("serial")
+	public class MultipleResultsException extends WundergroundException
     {
         private List<String> names;
         private List<String> codes;
